@@ -8,7 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import fon.hakaton.fonhakatonandroidapp.common.Destinations
+import fon.hakaton.fonhakatonandroidapp.presentation.login.LoginScreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
 
 /**
@@ -25,12 +28,13 @@ fun MainScreen() {
             color = MaterialTheme.colors.background
         ) {
             val navController = rememberNavController()
-            // TODO ADD START DESTINATION
             NavHost(
                 navController = navController,
-                startDestination = ""
+                startDestination = Destinations.Login.fullRoute
             ) {
-
+                composable(route = Destinations.Login.fullRoute) {
+                    LoginScreen(navController = navController)
+                }
             }
         }
     }
