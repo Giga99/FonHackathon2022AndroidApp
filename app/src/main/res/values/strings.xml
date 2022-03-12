@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FonHakatonAndroidApp</string>
+    <string name="sign_in">Sign in</string>
+    <string name="register">Register</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="or">or</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
