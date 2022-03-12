@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fon.hakaton.fonhakatonandroidapp.common.ApiUrl
-import fon.hakaton.fonhakatonandroidapp.data.remote.services.AppApiService
+import fon.hakaton.fonhakatonandroidapp.data.remote.services.LoginApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideTestApiService(
+    fun provideLoginApiService(
         retrofit: Retrofit
-    ): AppApiService = retrofit.create(AppApiService::class.java)
+    ): LoginApiService = retrofit.create(LoginApiService::class.java)
 }

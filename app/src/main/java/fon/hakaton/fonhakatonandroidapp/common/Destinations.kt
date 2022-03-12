@@ -9,7 +9,9 @@ sealed class Destinations(val route: String, vararg params: String) {
         builder.toString()
     }
 
-    object Login : Destinations("login")
+    object LoginScreen : Destinations("login")
+
+    object HomeScreen : Destinations("home")
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {

@@ -1,5 +1,6 @@
 package fon.hakaton.fonhakatonandroidapp.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -11,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fon.hakaton.fonhakatonandroidapp.common.Destinations
+import fon.hakaton.fonhakatonandroidapp.presentation.home.HomeScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.login.LoginScreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
 
@@ -24,16 +26,20 @@ fun MainScreen() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colors.background)
                 .padding(36.dp),
-            color = MaterialTheme.colors.background
         ) {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = Destinations.Login.fullRoute
+                startDestination = Destinations.LoginScreen.fullRoute
             ) {
-                composable(route = Destinations.Login.fullRoute) {
+                composable(route = Destinations.LoginScreen.fullRoute) {
                     LoginScreen(navController = navController)
+                }
+
+                composable(route = Destinations.HomeScreen.fullRoute) {
+                    HomeScreen(navController = navController)
                 }
             }
         }

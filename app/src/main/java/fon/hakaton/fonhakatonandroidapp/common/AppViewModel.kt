@@ -56,6 +56,7 @@ abstract class AppViewModel<ViewState, Intent, SideEffect>(
                 }
             }.onFailure { ex ->
                 Timber.d("ERROR OCCURRED: $ex")
+                subscribe(Result.Error(ex.message ?: ""))
             }
         }
     }

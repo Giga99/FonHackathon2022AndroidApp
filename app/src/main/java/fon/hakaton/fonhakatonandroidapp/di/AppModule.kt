@@ -17,5 +17,5 @@ object AppModule {
 
     @Provides
     @ApiUrl
-    fun provideApiUrl(): String = "" // TODO API URL HERE
+    fun provideApiUrl(): String = "https://catfact.ninja/" // TODO API URL HERE
 }
