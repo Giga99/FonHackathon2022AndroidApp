@@ -20,6 +20,12 @@ class TipsViewModel @Inject constructor(
         when (intent) {
             is TipsIntent.BackClicked -> {}
             is TipsIntent.ErrorDialogDismissed -> {}
+            is TipsIntent.NextClicked -> {
+                setState { copy(currentIndex = (currentIndex + 1) % tips.size) }
+            }
+            is TipsIntent.PreviousClicked -> {
+                setState { copy(currentIndex = if (currentIndex == 0) tips.size - 1 else currentIndex - 1) }
+            }
         }
     }
 }

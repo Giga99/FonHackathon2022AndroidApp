@@ -102,7 +102,7 @@ private fun TabItem(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { onClick() }
+        modifier = Modifier.clickable(onClick = onClick)
     ) {
         Icon(
             painter = icon,

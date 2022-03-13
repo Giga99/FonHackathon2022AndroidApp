@@ -3,6 +3,8 @@ package fon.hakaton.fonhakatonandroidapp.presentation.tips
 sealed class TipsIntent {
     object ErrorDialogDismissed : TipsIntent()
     object BackClicked : TipsIntent()
+    object NextClicked : TipsIntent()
+    object PreviousClicked : TipsIntent()
 }
 
 sealed class TipsSideEffect {
@@ -16,7 +18,8 @@ data class TipsViewState(
         TipModel(title = "Title3", description = "Description3"),
         TipModel(title = "Title4", description = "Description4"),
         TipModel(title = "Title5", description = "Description5"),
-    )
+    ),
+    val currentIndex: Int = 0,
 )
 
 data class TipModel(
