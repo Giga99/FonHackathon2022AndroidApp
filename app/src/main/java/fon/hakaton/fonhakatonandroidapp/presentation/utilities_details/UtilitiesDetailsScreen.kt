@@ -4,10 +4,8 @@ import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.ArrowBackIos
@@ -71,8 +69,6 @@ private fun UtilitiesDetailsScreen(
     intentChannel: MutableSharedFlow<UtilitiesDetailsIntent> = MutableSharedFlow()
 ) {
     Scaffold(
-        modifier = Modifier
-            .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -95,106 +91,115 @@ private fun UtilitiesDetailsScreen(
             }
         }
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
-            ) {
-                Column(
+        LazyColumn(modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()) {
+            item {
+                Card(
                     modifier = Modifier
-                        .background(ButtonDarkGreen)
-                        .padding(horizontal = 20.dp, vertical = 30.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
                 ) {
-                    Row(
+                    Column(
                         modifier = Modifier
-                            .clickable(onClick = { navController.popBackStack() })
+                            .background(ButtonDarkGreen)
+                            .padding(horizontal = 20.dp, vertical = 30.dp)
                     ) {
-                        Icon(
-                            imageVector = MaterialTheme.icons.ArrowBackIos,
-                            contentDescription = "",
-                            tint = ButtonLightGreen
-                        )
-                        Text(
-                            text = stringResource(R.string.back),
-                            color = ButtonLightGreen,
-                            style = MaterialTheme.typography.h4
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 24.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = viewState.utility.name,
-                            color = Color.White,
-                            style = MaterialTheme.typography.h1,
-                        )
+                        Row(
+                            modifier = Modifier
+                                .clickable(onClick = { navController.popBackStack() })
+                        ) {
+                            Icon(
+                                imageVector = MaterialTheme.icons.ArrowBackIos,
+                                contentDescription = "",
+                                tint = ButtonLightGreen
+                            )
+                            Text(
+                                text = stringResource(R.string.back),
+                                color = ButtonLightGreen,
+                                style = MaterialTheme.typography.h4
+                            )
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 24.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = viewState.utility.name,
+                                color = Color.White,
+                                style = MaterialTheme.typography.h1,
+                            )
+                            Text(
+                                text = stringResource(
+                                    R.string.kg_mo,
+                                    viewState.utility.carbonFootprint.toString(),
+                                ),
+                                color = Color.White,
+                                style = MaterialTheme.typography.h1,
+                            )
+                        }
                         Text(
                             text = stringResource(
-                                R.string.kg_mo,
-                                viewState.utility.carbonFootprint.toString(),
+                                R.string.better_than,
+                                viewState.utility.betterThanPercent
                             ),
                             color = Color.White,
-                            style = MaterialTheme.typography.h1,
+                            style = MaterialTheme.typography.h4,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 4.dp)
+                        )
+                        Spacer(modifier = Modifier.height(36.dp))
+                        ConsumptionItem(
+                            description = stringResource(R.string.last_month),
+                            consumption = viewState.utility.lastMonthConsumption,
+                            unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
+                        )
+                        ConsumptionItem(
+                            description = stringResource(R.string.average_consumption),
+                            consumption = viewState.utility.averageConsumption,
+                            unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
+                        )
+
+                        BarChart(
+                            barChartData = BarChartData(
+                                bars = viewState.utility.lastFiveMonths.map { it.toBarData() }
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                                .padding(top = 24.dp),
+                            animation = simpleChartAnimation(),
                         )
                     }
-                    Text(
-                        text = stringResource(
-                            R.string.better_than,
-                            viewState.utility.betterThanPercent
-                        ),
-                        color = Color.White,
-                        style = MaterialTheme.typography.h4,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 4.dp)
-                    )
-                    Spacer(modifier = Modifier.height(36.dp))
-                    ConsumptionItem(
-                        description = stringResource(R.string.last_month),
-                        consumption = viewState.utility.lastMonthConsumption,
-                        unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
-                    )
-                    ConsumptionItem(
-                        description = stringResource(R.string.average_consumption),
-                        consumption = viewState.utility.averageConsumption,
-                        unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
-                    )
-
-                    BarChart(
-                        barChartData = BarChartData(
-                            bars = viewState.utility.lastFiveMonths.map { it.toBarData() }
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .padding(top = 24.dp),
-                        animation = simpleChartAnimation(),
-                    )
                 }
             }
-            Column(
-                modifier = Modifier.padding(top = 24.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.tips),
-                    color = TextColorDarkGray2,
-                    style = TextStyle(
-                        fontFamily = FontFamily.Default,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 32.sp
-                    ),
+
+            item {
+                Column(
                     modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .padding(bottom = 16.dp)
-                )
-                TipItem(
-                    title = viewState.utility.tip.title,
-                    description = viewState.utility.tip.description,
-                )
+                        .wrapContentHeight()
+                        .padding(top = 24.dp, bottom = 48.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.tips),
+                        color = TextColorDarkGray2,
+                        style = TextStyle(
+                            fontFamily = FontFamily.Default,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 32.sp
+                        ),
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .padding(bottom = 16.dp)
+                    )
+                    TipItem(
+                        title = viewState.utility.tip.title,
+                        description = viewState.utility.tip.description,
+                    )
+                }
             }
         }
     }

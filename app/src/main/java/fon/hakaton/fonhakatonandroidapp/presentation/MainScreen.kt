@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fon.hakaton.fonhakatonandroidapp.common.Destinations
+import fon.hakaton.fonhakatonandroidapp.presentation.food_details.FoodDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.home.HomeScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.login.LoginScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.utilities_details.UtilitiesDetailsScreen
@@ -44,6 +45,10 @@ fun MainScreen() {
 
                 composable(route = Destinations.UtilitiesEditDetailsScreen.fullRoute) {
                     UtilitiesEditDetailsScreen(navController = navController)
+                }
+
+                composable(route = Destinations.FoodDetailsScreen.fullRoute) {
+                    FoodDetailsScreen(navController = navController)
                 }
             }
         }

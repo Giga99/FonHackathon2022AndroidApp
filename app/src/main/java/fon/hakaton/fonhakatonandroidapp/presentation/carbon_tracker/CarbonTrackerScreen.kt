@@ -198,7 +198,7 @@ private fun CarbonTrackerScreen(
                     name = stringResource(R.string.food),
                     value = stringResource(R.string.kg_mo, "40.8"),
                     showDivider = false,
-                    onClick = {}
+                    onClick = { navController.navigate(Destinations.FoodDetailsScreen.fullRoute) }
                 )
             }
         }
@@ -216,13 +216,13 @@ private fun CarbonItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(ButtonDarkGreen)
-            .clickable(onClick = onClick),
+            .background(ButtonDarkGreen),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(ButtonDarkGreen),
+                .background(ButtonDarkGreen)
+                .clickable(onClick = onClick),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(

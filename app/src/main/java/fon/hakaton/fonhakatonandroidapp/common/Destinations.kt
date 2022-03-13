@@ -35,6 +35,8 @@ sealed class Destinations(val route: String, vararg params: String) {
             )
         }
     }
+
+    object FoodDetailsScreen : Destinations("foods")
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {
