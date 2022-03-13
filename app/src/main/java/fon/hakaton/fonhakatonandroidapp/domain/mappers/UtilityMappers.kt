@@ -24,7 +24,7 @@ fun ElectricityCarbonResponse.toModel() =
                     3 -> Pair("Nov", item.amount)
                     else -> Pair("Oct", item.amount)
                 }
-            },
+            }.reversed(),
         isElectricity = true
     )
 
@@ -43,7 +43,7 @@ fun WaterCarbonResponse.toModel() =
                     3 -> Pair("Nov", item.amount)
                     else -> Pair("Oct", item.amount)
                 }
-            },
+            }.reversed(),
         isElectricity = false
     )
 
