@@ -2,6 +2,7 @@ package fon.hakaton.fonhakatonandroidapp.data.datasource
 
 import fon.hakaton.fonhakatonandroidapp.common.Result
 import fon.hakaton.fonhakatonandroidapp.data.remote.services.LoginApiService
+import fon.hakaton.fonhakatonandroidapp.domain.mappers.toModel
 import fon.hakaton.fonhakatonandroidapp.domain.mappers.toRequest
 import fon.hakaton.fonhakatonandroidapp.domain.models.LoginModel
 import fon.hakaton.fonhakatonandroidapp.domain.repos.LoginRepo
@@ -21,8 +22,8 @@ class LoginRepoImpl @Inject constructor(
     override suspend fun login(loginModel: LoginModel) = withContext(Dispatchers.IO) {
         Timber.d("REQUEST: $loginModel")
         try {
-            loginApiService.login(loginModel.toRequest())
-            Result.Success(Unit)
+            val response = loginApiService.login(loginModel.toRequest())
+            Result.Success(response.toModel())
         } catch (e: Exception) {
             Result.Error(e.message ?: "")
         }

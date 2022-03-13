@@ -1,6 +1,7 @@
 package fon.hakaton.fonhakatonandroidapp.data.remote.services
 
 import fon.hakaton.fonhakatonandroidapp.data.remote.requests.LoginRequest
+import fon.hakaton.fonhakatonandroidapp.data.remote.responses.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -11,5 +12,5 @@ import retrofit2.http.POST
 interface LoginApiService {
 
     @POST("user/login")
-    suspend fun login(@Body request: LoginRequest): Unit
+    suspend fun login(@Body request: LoginRequest): UserResponse
 }

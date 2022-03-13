@@ -97,9 +97,9 @@ private fun LoginScreen(
                     style = MaterialTheme.typography.h1
                 )
                 TextField(
-                    value = viewState.email,
-                    onValueChange = { intentChannel.tryEmit(LoginIntent.EmailInputChanged(it)) },
-                    placeholder = { Text(text = stringResource(R.string.email)) },
+                    value = viewState.username,
+                    onValueChange = { intentChannel.tryEmit(LoginIntent.UsernameInputChanged(it)) },
+                    placeholder = { Text(text = stringResource(R.string.username)) },
                     isError = viewState.emailError != null,
                     modifier = Modifier
                         .fillMaxWidth()

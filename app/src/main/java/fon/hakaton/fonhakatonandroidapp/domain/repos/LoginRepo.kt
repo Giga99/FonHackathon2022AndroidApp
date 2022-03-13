@@ -2,6 +2,7 @@ package fon.hakaton.fonhakatonandroidapp.domain.repos
 
 import fon.hakaton.fonhakatonandroidapp.common.Result
 import fon.hakaton.fonhakatonandroidapp.domain.models.LoginModel
+import fon.hakaton.fonhakatonandroidapp.domain.models.UserModel
 
 /**
  * @author igorstevanovic
@@ -9,5 +10,5 @@ import fon.hakaton.fonhakatonandroidapp.domain.models.LoginModel
  */
 interface LoginRepo {
 
-    suspend fun login(loginModel: LoginModel): Result<Unit>
+    suspend fun login(loginModel: LoginModel): Result<UserModel>
 }

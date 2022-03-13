@@ -22,8 +22,8 @@ class LoginViewModel @Inject constructor(
     override suspend fun processIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.ErrorDialogDismissed -> {}
-            is LoginIntent.EmailInputChanged -> {
-                setState { copy(email = intent.email.trim()) }
+            is LoginIntent.UsernameInputChanged -> {
+                setState { copy(username = intent.username.trim()) }
             }
             is LoginIntent.PasswordInputChanged -> {
                 setState {
@@ -31,27 +31,20 @@ class LoginViewModel @Inject constructor(
                 }
             }
             is LoginIntent.LoginButtonClicked -> {
-//                if (validateEmail(getState().email)) {
-                    setState { copy(emailError = null) }
-                    viewModelScope.launch {
-//                        val result =
-//                            loginRepo.login(LoginModel(getState().email, getState().password))
-//                        when (result) {
-//                            is Result.Success -> {
-                                _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
-//                            }
-//                            is Result.Error -> {
-//                                Timber.d(result.message)
-//                            }
-//                        }
+                setState { copy(emailError = null) }
+                viewModelScope.launch {
+                    val result =
+                        loginRepo.login(LoginModel(getState().username, getState().password))
+                    when (result) {
+                        is Result.Success -> {
+                            _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
+                        }
+                        is Result.Error -> {
+                            Timber.d(result.message)
+                        }
                     }
-//                } else {
-//                    setState { copy(emailError = "Bad email format!") }
-//                }
+                }
             }
         }
     }
-
-    private fun validateEmail(email: String) =
-        email.contains("@") && email.contains(".com")
 }
