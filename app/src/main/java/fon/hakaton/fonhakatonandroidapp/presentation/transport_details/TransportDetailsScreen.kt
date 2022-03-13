@@ -17,12 +17,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
@@ -185,8 +191,123 @@ private fun TransportDetailsScreen(
                         .wrapContentHeight()
                         .padding(top = 24.dp, bottom = 48.dp)
                 ) {
-
+                    Text(
+                        text = stringResource(R.string.suggested_routes),
+                        color = TextColorDarkGray2,
+                        style = TextStyle(
+                            fontFamily = FontFamily.Default,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 32.sp
+                        ),
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .padding(bottom = 16.dp)
+                    )
+                    SuggestedRoute()
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SuggestedRoute() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .background(TextInputGrayColor)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.start_destination),
+                    contentDescription = "",
+                    tint = ButtonLightGreen,
+                    modifier = Modifier.size(26.dp)
+                )
+//                Card(
+//                    modifier = Modifier
+//                        .size(6.dp)
+//                        .padding(top = 8.dp),
+//                    shape = CircleShape,
+//                    backgroundColor = TextColorGray
+//                ) {
+//                }
+//                Card(
+//                    modifier = Modifier
+//                        .size(6.dp)
+//                        .padding(top = 8.dp),
+//                    shape = CircleShape,
+//                    backgroundColor = TextColorGray
+//                ) {
+//                }
+//                Card(
+//                    modifier = Modifier
+//                        .size(6.dp)
+//                        .padding(top = 8.dp),
+//                    shape = CircleShape,
+//                    backgroundColor = TextColorGray
+//                ) {
+//                }
+                Icon(
+                    painter = painterResource(R.drawable.end_destination),
+                    contentDescription = "",
+                    tint = Color.Red,
+                    modifier = Modifier
+                        .size(26.dp)
+                        .padding(top = 8.dp)
+                )
+            }
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(
+                        text = "Elektrotehnicki fakultet",
+                        modifier = Modifier
+                            .background(Color.White)
+                            .padding(8.dp),
+                    )
+                }
+                Card(
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Fakultet organizacionih nauka",
+                        modifier = Modifier
+                            .background(Color.White)
+                            .padding(8.dp),
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+            ) {
+                Icon(
+                    imageVector = MaterialTheme.icons.ArrowBackIos,
+                    contentDescription = "",
+                    modifier = Modifier.rotate(180f),
+                    tint = ButtonLightGreen
+                )
             }
         }
     }

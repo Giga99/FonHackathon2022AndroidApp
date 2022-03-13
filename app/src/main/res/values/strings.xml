@@ -43,4 +43,5 @@
     <string name="car">Car</string>
     <string name="bus">Bus</string>
     <string name="plane">Plane</string>
+    <string name="suggested_routes">Suggested routes</string>
 </resources>
