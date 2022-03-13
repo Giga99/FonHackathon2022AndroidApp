@@ -42,10 +42,6 @@ data class TipsViewState(
         ),
         TipModel(
             title = "Install an aerator",
-            description = "Description5"
-        ),
-        TipModel(
-            title = "Title5",
             description = "An aerator is a device which is attached to faucets\n" +
                     "\n" +
                     "Dishwashers may use electricity, but they save more energy, money, water and time than hand washing. According to the California Energy Commission, using an Energy Star-qualified dishwasher instead of hand washing can save you, on average, 5,000 gallons of water and \$40 in utility costs each year, not to mention 230 hours of your time."
