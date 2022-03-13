@@ -24,7 +24,7 @@ class UtilitiesDetailsViewModel @Inject constructor(
                     UtilityModel(
                         name = "Electricity",
                         betterThanPercent = "40%",
-                        lastMonth = 891,
+                        lastMonthConsumption = 891,
                         averageConsumption = 936,
                         lastFiveMonths = listOf(
                             "Nov" to 930,
@@ -43,7 +43,7 @@ class UtilitiesDetailsViewModel @Inject constructor(
                     UtilityModel(
                         name = "Water",
                         betterThanPercent = "20%",
-                        lastMonth = 1400,
+                        lastMonthConsumption = 1400,
                         averageConsumption = 1200,
                         lastFiveMonths = listOf(
                             "Nov" to 1400,

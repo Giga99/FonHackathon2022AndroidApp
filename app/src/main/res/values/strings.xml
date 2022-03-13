@@ -20,4 +20,10 @@
     <string name="tips">Tips</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="better_than">You’re better than %s of the users.</string>
+    <string name="last_month">Last month</string>
+    <string name="average_consumption">Average consumption</string>
+    <string name="electricity_unit">kW</string>
+    <string name="water_unit">m^3</string>
 </resources>

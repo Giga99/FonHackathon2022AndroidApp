@@ -119,7 +119,7 @@ private fun TipsScreen(
 }
 
 @Composable
-private fun TipItem(
+fun TipItem(
     title: String,
     description: String,
 ) {
@@ -168,7 +168,6 @@ private fun NextPreviousItem(
             Icon(
                 imageVector = MaterialTheme.icons.ArrowBackIos,
                 contentDescription = "",
-                modifier = Modifier.rotate(if (isNext) 180f else 0f),
                 tint = ButtonLightGreen
             )
         }
@@ -180,7 +179,7 @@ private fun NextPreviousItem(
             Icon(
                 imageVector = MaterialTheme.icons.ArrowBackIos,
                 contentDescription = "",
-                modifier = Modifier.rotate(if (isNext) 180f else 0f),
+                modifier = Modifier.rotate(180f),
                 tint = ButtonLightGreen
             )
         }

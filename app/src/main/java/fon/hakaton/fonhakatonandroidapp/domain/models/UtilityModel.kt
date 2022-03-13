@@ -7,7 +7,8 @@ package fon.hakaton.fonhakatonandroidapp.domain.models
 data class UtilityModel(
     val name: String = "Electricity",
     val betterThanPercent: String = "40%",
-    val lastMonth: Int = 891,
+    val carbonFootprint: Float = 42.5f,
+    val lastMonthConsumption: Int = 891,
     val averageConsumption: Int = 936,
     val lastFiveMonths: List<Pair<String, Int>> = listOf(
         "Nov" to 930,

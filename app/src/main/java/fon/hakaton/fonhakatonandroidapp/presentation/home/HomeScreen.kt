@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +24,10 @@ import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
 import fon.hakaton.fonhakatonandroidapp.presentation.carbon_tracker.CarbonTrackerScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipsScreen
-import fon.hakaton.fonhakatonandroidapp.ui.theme.*
+import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonDarkGreen
+import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonLightGreen
+import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
+import fon.hakaton.fonhakatonandroidapp.ui.theme.PlaceholderColor
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
@@ -77,7 +79,7 @@ private fun HomeScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(TextInputGrayColor2)
+                        .background(ButtonDarkGreen)
                         .padding(top = 16.dp, bottom = 24.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically,

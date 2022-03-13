@@ -16,6 +16,7 @@ val ButtonDarkGreen = Color(0xFF007862)
 
 val TextColorGray = Color(0xFF7C7777)
 val TextColorDarkGray = Color(0xFF5A5A5A)
+val TextColorDarkGray2 = Color(0xFF575757)
 val PlaceholderColor = Color(0xFFB1B1B1)
 
 val TextInputGrayColor = Color(0xFFF3F3F3)
