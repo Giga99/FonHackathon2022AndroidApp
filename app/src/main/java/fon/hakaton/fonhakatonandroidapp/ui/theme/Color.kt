@@ -28,3 +28,9 @@ val ProgressFoodColor = Color(0xFF3FDE92)
 val ProgressElectricityColor = Color(0xFFFAFF1B)
 
 val DividerColor = Color(0xFFB0FF9C)
+
+val ProgressBeefColor = Color(0xFF009378)
+val ProgressOtherMeatColor = Color(0xFF00BB99)
+val ProgressAnimalProductsColor = Color(0xFF03EEC4)
+val ProgressVegetablesColor = Color(0xFF8EFFEB)
+val ProgressPastryColor = Color(0xFFBCFCF0)
