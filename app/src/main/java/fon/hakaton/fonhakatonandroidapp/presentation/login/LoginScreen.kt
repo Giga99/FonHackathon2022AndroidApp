@@ -111,6 +111,7 @@ private fun LoginScreen(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         disabledIndicatorColor = Color.Transparent,
+                        backgroundColor = TextInputGrayColor,
                     ),
                 )
                 TextField(
@@ -129,6 +130,7 @@ private fun LoginScreen(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         disabledIndicatorColor = Color.Transparent,
+                        backgroundColor = TextInputGrayColor,
                     ),
                 )
                 Spacer(modifier = Modifier.height(60.dp))

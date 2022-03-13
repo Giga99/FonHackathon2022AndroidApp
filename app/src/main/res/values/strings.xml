@@ -6,4 +6,15 @@
     <string name="or">or</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="welcome_back">Welcome back, %s!</string>
+    <string name="co2_kg_month">CO2 kg/month</string>
+    <string name="transport">Transport</string>
+    <string name="water">Water</string>
+    <string name="food">Food</string>
+    <string name="electricity">Electricity</string>
+    <string name="you_are_better_than">You’re better than %s!</string>
+    <string name="average_is">The average is %s</string>
+    <string name="kg_mo">%s kg/mo</string>
+    <string name="overview">Overview</string>
+    <string name="fun_facts">Fun facts</string>
 </resources>

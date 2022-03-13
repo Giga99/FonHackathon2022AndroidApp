@@ -32,17 +32,18 @@ class LoginViewModel @Inject constructor(
                 }
             }
             is LoginIntent.LoginButtonClicked -> {
-                if (validateEmail(getState().email)) {
+//                if (validateEmail(getState().email)) {
                     setState { copy(emailError = null) }
                     viewModelScope.launch {
                         val result = loginRepo.login()
-                        when (result) {
-                            is Result.Success -> _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
-                        }
+//                        when (result) {
+//                            is Result.Success ->
+                                _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
+//                        }
                     }
-                } else {
-                    setState { copy(emailError = "Bad email format!") }
-                }
+//                } else {
+//                    setState { copy(emailError = "Bad email format!") }
+//                }
             }
         }
     }

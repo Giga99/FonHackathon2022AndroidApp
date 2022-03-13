@@ -10,5 +10,8 @@ sealed class HomeSideEffect {
 }
 
 data class HomeViewState(
-    val temp: Int = 0
+    val transport: Float = 0.32f,
+    val water: Float = 0.15f,
+    val food: Float = 0.15f,
+    val electricity: Float = 0.15f,
 )
