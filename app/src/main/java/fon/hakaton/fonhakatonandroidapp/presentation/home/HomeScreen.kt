@@ -2,14 +2,17 @@ package fon.hakaton.fonhakatonandroidapp.presentation.home
 
 import android.content.res.Configuration
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
@@ -22,10 +25,7 @@ import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
 import fon.hakaton.fonhakatonandroidapp.presentation.carbon_tracker.CarbonTrackerScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipsScreen
-import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonLightGreen
-import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
-import fon.hakaton.fonhakatonandroidapp.ui.theme.PlaceholderColor
-import fon.hakaton.fonhakatonandroidapp.ui.theme.TextInputGrayColor
+import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
@@ -62,33 +62,46 @@ private fun HomeScreen(
     navController: NavController,
     intentChannel: MutableSharedFlow<HomeIntent> = MutableSharedFlow()
 ) {
-    Box {
+    Scaffold(
+        bottomBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .background(TextInputGrayColor2)
+//                        .blur(24.dp)
+//                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(TextInputGrayColor2)
+                        .padding(top = 16.dp, bottom = 24.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TabItem(
+                        name = stringResource(R.string.overview),
+                        icon = painterResource(R.drawable.eye),
+                        color = if (viewState.overviewSelected) ButtonLightGreen else PlaceholderColor,
+                        onClick = { intentChannel.tryEmit(HomeIntent.OverviewTabClicked) },
+                    )
+                    TabItem(
+                        name = stringResource(R.string.fun_facts),
+                        icon = painterResource(R.drawable.magazine),
+                        color = if (!viewState.overviewSelected) ButtonLightGreen else PlaceholderColor,
+                        onClick = { intentChannel.tryEmit(HomeIntent.TipsTabClicked) },
+                    )
+                }
+            }
+        }
+    ) {
         if (viewState.overviewSelected) {
             CarbonTrackerScreen(navController = navController)
         } else {
             TipsScreen(navController = navController)
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 20.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            TabItem(
-                name = stringResource(R.string.overview),
-                icon = painterResource(R.drawable.eye),
-                color = if (viewState.overviewSelected) ButtonLightGreen else TextInputGrayColor,
-                onClick = { intentChannel.tryEmit(HomeIntent.OverviewTabClicked) },
-            )
-            TabItem(
-                name = stringResource(R.string.fun_facts),
-                icon = painterResource(R.drawable.magazine),
-                color = if (!viewState.overviewSelected) ButtonLightGreen else PlaceholderColor,
-                onClick = { intentChannel.tryEmit(HomeIntent.TipsTabClicked) },
-            )
         }
     }
 }

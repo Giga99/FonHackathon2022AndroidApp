@@ -10,6 +10,6 @@ import retrofit2.http.POST
  */
 interface LoginApiService {
 
-    @POST("user/save")
+    @POST("user/search")
     suspend fun login(@Body request: LoginRequest): Unit
 }

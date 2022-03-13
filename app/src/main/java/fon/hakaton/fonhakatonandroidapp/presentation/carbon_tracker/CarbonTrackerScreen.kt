@@ -4,12 +4,9 @@ import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
@@ -34,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
+import fon.hakaton.fonhakatonandroidapp.common.Destinations
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -45,7 +43,7 @@ fun CarbonTrackerScreen(
     viewModel: CarbonTrackerViewModel = hiltViewModel(),
 ) = viewModel.Collect { viewState, intentChannel, sideEffects ->
     CarbonTrackerSideEffects(sideEffects)
-    CarbonTrackerScreen(viewState, intentChannel)
+    CarbonTrackerScreen(viewState, navController, intentChannel)
     CarbonTrackerDialog(viewState, intentChannel)
 }
 
@@ -68,6 +66,7 @@ private fun CarbonTrackerSideEffects(
 @Composable
 private fun CarbonTrackerScreen(
     viewState: CarbonTrackerViewState,
+    navController: NavController,
     intentChannel: MutableSharedFlow<CarbonTrackerIntent> = MutableSharedFlow()
 ) {
     Column(
@@ -180,22 +179,26 @@ private fun CarbonTrackerScreen(
                     icon = painterResource(R.drawable.bolt),
                     name = stringResource(R.string.electricity),
                     value = stringResource(R.string.kg_mo, "42.5"),
+                    onClick = { navController.navigate(Destinations.UtilitiesDetailsScreen(isElectricity = true)) }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.drop),
                     name = stringResource(R.string.water),
                     value = stringResource(R.string.kg_mo, "5.1"),
+                    onClick = { navController.navigate(Destinations.UtilitiesDetailsScreen(isElectricity = false)) }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.car),
                     name = stringResource(R.string.transport),
                     value = stringResource(R.string.kg_mo, "112.8"),
+                    onClick = {}
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.fork_knife),
                     name = stringResource(R.string.food),
                     value = stringResource(R.string.kg_mo, "40.8"),
                     showDivider = false,
+                    onClick = {}
                 )
             }
         }
@@ -208,11 +211,13 @@ private fun CarbonItem(
     name: String,
     value: String,
     showDivider: Boolean = true,
+    onClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(ButtonDarkGreen),
+            .background(ButtonDarkGreen)
+            .clickable(onClick = onClick),
     ) {
         Row(
             modifier = Modifier
@@ -394,6 +399,6 @@ private fun CarbonTrackerDialog(
 @Composable
 private fun PreviewCarbonTrackerScreen() {
     FonHakatonAndroidAppTheme() {
-        CarbonTrackerScreen(CarbonTrackerViewState())
+//        CarbonTrackerScreen(CarbonTrackerViewState())
     }
 }

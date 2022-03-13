@@ -31,23 +31,23 @@ class LoginViewModel @Inject constructor(
                 }
             }
             is LoginIntent.LoginButtonClicked -> {
-                if (validateEmail(getState().email)) {
+//                if (validateEmail(getState().email)) {
                     setState { copy(emailError = null) }
                     viewModelScope.launch {
-                        val result =
-                            loginRepo.login(LoginModel(getState().email, getState().password))
-                        when (result) {
-                            is Result.Success -> {
+//                        val result =
+//                            loginRepo.login(LoginModel(getState().email, getState().password))
+//                        when (result) {
+//                            is Result.Success -> {
                                 _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
-                            }
-                            is Result.Error -> {
-                                Timber.d(result.message)
-                            }
-                        }
+//                            }
+//                            is Result.Error -> {
+//                                Timber.d(result.message)
+//                            }
+//                        }
                     }
-                } else {
-                    setState { copy(emailError = "Bad email format!") }
-                }
+//                } else {
+//                    setState { copy(emailError = "Bad email format!") }
+//                }
             }
         }
     }

@@ -7,7 +7,7 @@ package fon.hakaton.fonhakatonandroidapp.data.remote.requests
 data class LoginRequest(
     val username: String,
     val password: String,
-    val name: String = "Igor",
-    val apartment_size: Long = 1,
-    val residents: Long = 4,
+//    val name: String = "Igor",
+//    val apartment_size: Long = 1,
+//    val residents: Long = 4,
 )

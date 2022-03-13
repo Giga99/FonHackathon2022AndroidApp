@@ -1,5 +1,7 @@
 package fon.hakaton.fonhakatonandroidapp.presentation.tips
 
+import fon.hakaton.fonhakatonandroidapp.domain.models.TipModel
+
 sealed class TipsIntent {
     object ErrorDialogDismissed : TipsIntent()
     object BackClicked : TipsIntent()
@@ -20,9 +22,4 @@ data class TipsViewState(
         TipModel(title = "Title5", description = "Description5"),
     ),
     val currentIndex: Int = 0,
-)
-
-data class TipModel(
-    val title: String,
-    val description: String,
 )
