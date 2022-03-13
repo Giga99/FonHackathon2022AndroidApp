@@ -21,11 +21,18 @@ sealed class Destinations(val route: String, vararg params: String) {
         }
     }
 
-    object UtilitiesEditDetailsScreen : Destinations("utilities/edit", "consumption") {
+    object UtilitiesEditDetailsScreen :
+        Destinations("utilities/edit", "name", "consumption", "renewable_energy") {
+        const val NAME = "name"
         const val CONSUMPTION = "consumption"
+        const val RENEWABLE_ENERGY = "renewable_energy"
 
-        operator fun invoke(consumption: Long): String {
-            return route.appendParams(CONSUMPTION to consumption)
+        operator fun invoke(name: String, consumption: Long, renewableEnergy: Int?): String {
+            return route.appendParams(
+                NAME to name,
+                CONSUMPTION to consumption,
+                RENEWABLE_ENERGY to renewableEnergy,
+            )
         }
     }
 }

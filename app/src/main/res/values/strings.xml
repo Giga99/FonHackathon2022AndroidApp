@@ -26,4 +26,9 @@
     <string name="average_consumption">Average consumption</string>
     <string name="electricity_unit">kW</string>
     <string name="water_unit">m^3</string>
+    <string name="number_of_residents">Number of residents</string>
+    <string name="apartment_size">Apartment size(m^2)</string>
+    <string name="renewable_energy">Renewable energy(%)</string>
+    <string name="consumption">Consumption</string>
+    <string name="save_input">Save input</string>
 </resources>

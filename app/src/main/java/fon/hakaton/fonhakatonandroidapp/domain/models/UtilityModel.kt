@@ -22,4 +22,5 @@ data class UtilityModel(
         "Despite being “switched off” almost all electrical devices continue operate in a standby mode and continue using electricity even when they’re not in active use. This standby power draw accounts for about 10% of an average household's annual electricity use. Unplug your appliances or turn them off at the socket to reduce your monthly carbon footprint by x%."
     ),
     val isElectricity: Boolean = true,
+    val renewableEnergyPercent: Int? = 34,
 )

@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -71,12 +72,20 @@ private fun UtilitiesDetailsScreen(
             .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.navigate(Destinations.UtilitiesEditDetailsScreen(viewState.utility.lastMonthConsumption)) },
+                onClick = {
+                    navController.navigate(
+                        Destinations.UtilitiesEditDetailsScreen(
+                            viewState.utility.name,
+                            viewState.utility.lastMonthConsumption,
+                            if (viewState.utility.isElectricity) viewState.utility.renewableEnergyPercent else null
+                        )
+                    )
+                },
                 backgroundColor = ButtonDarkGreen,
                 modifier = Modifier.padding(bottom = 16.dp)
             ) {
                 Icon(
-                    imageVector = MaterialTheme.icons.Add,
+                    imageVector = MaterialTheme.icons.Edit,
                     contentDescription = "",
                     tint = Color.White,
                 )

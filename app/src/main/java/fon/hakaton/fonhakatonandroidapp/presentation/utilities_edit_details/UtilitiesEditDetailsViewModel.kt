@@ -20,6 +20,21 @@ class UtilitiesEditDetailsViewModel @Inject constructor(
         when (intent) {
             is UtilitiesEditDetailsIntent.BackClicked -> {}
             is UtilitiesEditDetailsIntent.ErrorDialogDismissed -> {}
+            is UtilitiesEditDetailsIntent.NumberOfResidentsInputChanged -> {
+                setState { copy(numberOfResidents = intent.numberOfResidents.toInt()) }
+            }
+            is UtilitiesEditDetailsIntent.ApartmentSizeInputChanged -> {
+                setState { copy(apartmentSize = intent.apartmentSize.toInt()) }
+            }
+            is UtilitiesEditDetailsIntent.ConsumptionInputChanged -> {
+                setState { copy(consumption = intent.consumption.toLong()) }
+            }
+            is UtilitiesEditDetailsIntent.RenewableEnergyInputChanged -> {
+                setState { copy(renewableEnergyPercent = intent.renewableEnergyPercent.toInt()) }
+            }
+            is UtilitiesEditDetailsIntent.SaveInputClicked -> {
+
+            }
         }
     }
 }
