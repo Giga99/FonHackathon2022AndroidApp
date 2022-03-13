@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
@@ -29,7 +28,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
 import fon.hakaton.fonhakatonandroidapp.common.Destinations
+import fon.hakaton.fonhakatonandroidapp.common.simpleChartAnimation
+import fon.hakaton.fonhakatonandroidapp.domain.models.toBarData
 import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipItem
+import fon.hakaton.fonhakatonandroidapp.ui.bar.BarChart
+import fon.hakaton.fonhakatonandroidapp.ui.bar.BarChartData
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -159,6 +162,17 @@ private fun UtilitiesDetailsScreen(
                         description = stringResource(R.string.average_consumption),
                         consumption = viewState.utility.averageConsumption,
                         unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
+                    )
+
+                    BarChart(
+                        barChartData = BarChartData(
+                            bars = viewState.utility.lastFiveMonths.map { it.toBarData() }
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .padding(top = 24.dp),
+                        animation = simpleChartAnimation(),
                     )
                 }
             }

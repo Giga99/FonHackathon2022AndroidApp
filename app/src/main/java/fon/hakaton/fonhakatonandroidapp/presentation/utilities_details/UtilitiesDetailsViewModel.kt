@@ -28,10 +28,10 @@ class UtilitiesDetailsViewModel @Inject constructor(
                         averageConsumption = 936,
                         lastFiveMonths = listOf(
                             "Nov" to 930,
-                            "Dec" to 960,
+                            "Dec" to 560,
                             "Jan" to 990,
                             "Feb" to 930,
-                            "Mar" to 891
+                            "Mar" to 780
                         ),
                         tip = TipModel(
                             "Standby power draw",

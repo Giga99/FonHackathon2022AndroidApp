@@ -1,5 +1,8 @@
 package fon.hakaton.fonhakatonandroidapp.domain.models
 
+import fon.hakaton.fonhakatonandroidapp.ui.bar.BarChartData
+import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonLightGreen
+
 /**
  * @author igorstevanovic
  * Created 13.3.22. at 04:01
@@ -24,3 +27,10 @@ data class UtilityModel(
     val isElectricity: Boolean = true,
     val renewableEnergyPercent: Int? = 34,
 )
+
+fun Pair<String, Int>.toBarData() =
+    BarChartData.Bar(
+        label = first,
+        value = second.toFloat(),
+        color = ButtonLightGreen
+    )
