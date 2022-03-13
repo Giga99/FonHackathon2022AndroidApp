@@ -32,13 +32,14 @@ fun UtilitiesEditDetailsScreen(
     navController: NavController,
     viewModel: UtilitiesEditDetailsViewModel = hiltViewModel(),
 ) = viewModel.Collect { viewState, intentChannel, sideEffects ->
-    UtilitiesEditDetailsSideEffects(sideEffects)
+    UtilitiesEditDetailsSideEffects(navController, sideEffects)
     UtilitiesEditDetailsScreen(viewState, navController, intentChannel)
     UtilitiesEditDetailsDialog(viewState, intentChannel)
 }
 
 @Composable
 private fun UtilitiesEditDetailsSideEffects(
+    navController: NavController,
     sideEffects: SharedFlow<UtilitiesEditDetailsSideEffect>
 ) {
     val context = LocalContext.current
@@ -47,6 +48,10 @@ private fun UtilitiesEditDetailsSideEffects(
             when (sideEffect) {
                 is UtilitiesEditDetailsSideEffect.ShowMessage -> {
                     Toast.makeText(context, sideEffect.text, Toast.LENGTH_SHORT).show()
+                }
+
+                is UtilitiesEditDetailsSideEffect.InputFinished -> {
+                    navController.popBackStack()
                 }
             }
         }
@@ -247,7 +252,7 @@ private fun UtilitiesEditDetailsScreen(
                 onClick = { intentChannel.tryEmit(UtilitiesEditDetailsIntent.SaveInputClicked) },
             ) {
                 Text(
-                    text = stringResource(R.string.sign_in),
+                    text = stringResource(R.string.save_input),
                     color = Color.White,
                     style = MaterialTheme.typography.button,
                     modifier = Modifier

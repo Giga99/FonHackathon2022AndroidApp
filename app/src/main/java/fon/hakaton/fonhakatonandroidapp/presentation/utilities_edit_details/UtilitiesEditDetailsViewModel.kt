@@ -33,7 +33,7 @@ class UtilitiesEditDetailsViewModel @Inject constructor(
                 setState { copy(renewableEnergyPercent = intent.renewableEnergyPercent.toInt()) }
             }
             is UtilitiesEditDetailsIntent.SaveInputClicked -> {
-
+                _sideEffects.tryEmit(UtilitiesEditDetailsSideEffect.InputFinished)
             }
         }
     }

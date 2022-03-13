@@ -37,6 +37,31 @@ sealed class Destinations(val route: String, vararg params: String) {
     }
 
     object FoodDetailsScreen : Destinations("foods")
+
+    object FoodEditDetailsScreen :
+        Destinations("food/edit", "beef", "other_meat", "animal_products", "vegetables", "pastry") {
+        const val BEEF = "beef"
+        const val OTHER_MEAT = "other_meat"
+        const val ANIMAL_PRODUCTS = "animal_products"
+        const val VEGETABLES = "vegetables"
+        const val PASTRY = "pastry"
+
+        operator fun invoke(
+            beef: Int,
+            otherMeat: Int,
+            animalProducts: Int,
+            vegetables: Int,
+            pastry: Int
+        ): String {
+            return route.appendParams(
+                BEEF to beef,
+                OTHER_MEAT to otherMeat,
+                ANIMAL_PRODUCTS to animalProducts,
+                VEGETABLES to vegetables,
+                PASTRY to pastry,
+            )
+        }
+    }
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {

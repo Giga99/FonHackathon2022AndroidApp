@@ -12,6 +12,7 @@ sealed class UtilitiesEditDetailsIntent {
 
 sealed class UtilitiesEditDetailsSideEffect {
     data class ShowMessage(val text: String) : UtilitiesEditDetailsSideEffect()
+    object InputFinished : UtilitiesEditDetailsSideEffect()
 }
 
 data class UtilitiesEditDetailsViewState(

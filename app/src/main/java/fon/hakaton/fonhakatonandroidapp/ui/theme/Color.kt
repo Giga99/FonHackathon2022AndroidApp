@@ -34,3 +34,5 @@ val ProgressOtherMeatColor = Color(0xFF00BB99)
 val ProgressAnimalProductsColor = Color(0xFF03EEC4)
 val ProgressVegetablesColor = Color(0xFF8EFFEB)
 val ProgressPastryColor = Color(0xFFBCFCF0)
+
+val InactiveSlideColor = Color(0x7878805C)

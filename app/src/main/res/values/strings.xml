@@ -35,6 +35,7 @@
     <string name="beef">Beef</string>
     <string name="other_meat">Other meat</string>
     <string name="animal_products">Animal products</string>
+    <string name="animal_products_eggs_milk">Animal products (eggs, milk)</string>
     <string name="fruits_vegetables">Fruits &amp; vegetables</string>
     <string name="pastry">Pastry</string>
 </resources>

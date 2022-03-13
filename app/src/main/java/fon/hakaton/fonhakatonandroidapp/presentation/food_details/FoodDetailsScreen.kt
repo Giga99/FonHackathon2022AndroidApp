@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
+import fon.hakaton.fonhakatonandroidapp.common.Destinations
 import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipItem
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -72,7 +73,17 @@ private fun FoodDetailsScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                    navController.navigate(
+                        Destinations.FoodEditDetailsScreen(
+                            beef = viewState.foodModel.beef,
+                            otherMeat = viewState.foodModel.otherMeat,
+                            animalProducts = viewState.foodModel.animalProducts,
+                            vegetables = viewState.foodModel.vegetables,
+                            pastry = viewState.foodModel.pastry,
+                        )
+                    )
+                },
                 backgroundColor = ButtonDarkGreen,
                 modifier = Modifier.padding(bottom = 16.dp)
             ) {
