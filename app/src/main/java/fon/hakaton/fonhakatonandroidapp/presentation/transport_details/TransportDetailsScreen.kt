@@ -1,4 +1,4 @@
-package fon.hakaton.fonhakatonandroidapp.presentation.food_details
+package fon.hakaton.fonhakatonandroidapp.presentation.transport_details
 
 import android.content.res.Configuration
 import android.widget.Toast
@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -22,41 +21,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
-import fon.hakaton.fonhakatonandroidapp.common.Destinations
-import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipItem
+import fon.hakaton.fonhakatonandroidapp.presentation.food_details.ConsumptionItem
+import fon.hakaton.fonhakatonandroidapp.presentation.food_details.LegendItem
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun FoodDetailsScreen(
+fun TransportDetailsScreen(
     navController: NavController,
-    viewModel: FoodDetailsViewModel = hiltViewModel(),
+    viewModel: TransportDetailsViewModel = hiltViewModel(),
 ) = viewModel.Collect { viewState, intentChannel, sideEffects ->
-    FoodDetailsSideEffects(sideEffects)
-    FoodDetailsScreen(viewState, navController, intentChannel)
-    FoodDetailsDialog(viewState, intentChannel)
+    TransportDetailsSideEffects(sideEffects)
+    TransportDetailsScreen(viewState, navController, intentChannel)
+    TransportDetailsDialog(viewState, intentChannel)
 }
 
 @Composable
-private fun FoodDetailsSideEffects(
-    sideEffects: SharedFlow<FoodDetailsSideEffect>
+private fun TransportDetailsSideEffects(
+    sideEffects: SharedFlow<TransportDetailsSideEffect>
 ) {
     val context = LocalContext.current
     LaunchedEffect(sideEffects) {
         sideEffects.collect { sideEffect ->
             when (sideEffect) {
-                is FoodDetailsSideEffect.ShowMessage -> {
+                is TransportDetailsSideEffect.ShowMessage -> {
                     Toast.makeText(context, sideEffect.text, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -65,36 +60,12 @@ private fun FoodDetailsSideEffects(
 }
 
 @Composable
-private fun FoodDetailsScreen(
-    viewState: FoodDetailsViewState,
+private fun TransportDetailsScreen(
+    viewState: TransportDetailsViewState,
     navController: NavController,
-    intentChannel: MutableSharedFlow<FoodDetailsIntent> = MutableSharedFlow()
+    intentChannel: MutableSharedFlow<TransportDetailsIntent> = MutableSharedFlow()
 ) {
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(
-                        Destinations.FoodEditDetailsScreen(
-                            beef = viewState.foodModel.beef,
-                            otherMeat = viewState.foodModel.otherMeat,
-                            animalProducts = viewState.foodModel.animalProducts,
-                            vegetables = viewState.foodModel.vegetables,
-                            pastry = viewState.foodModel.pastry,
-                        )
-                    )
-                },
-                backgroundColor = ButtonDarkGreen,
-                modifier = Modifier.padding(bottom = 16.dp)
-            ) {
-                Icon(
-                    imageVector = MaterialTheme.icons.Edit,
-                    contentDescription = "",
-                    tint = Color.White,
-                )
-            }
-        }
-    ) {
+    Scaffold {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -133,14 +104,14 @@ private fun FoodDetailsScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = stringResource(R.string.food),
+                                text = stringResource(R.string.transport),
                                 color = Color.White,
                                 style = MaterialTheme.typography.h1,
                             )
                             Text(
                                 text = stringResource(
                                     R.string.kg_mo,
-                                    viewState.foodModel.carbonFootprint,
+                                    viewState.transport.carbonFootprint,
                                 ),
                                 color = Color.White,
                                 style = MaterialTheme.typography.h1,
@@ -149,7 +120,7 @@ private fun FoodDetailsScreen(
                         Text(
                             text = stringResource(
                                 R.string.better_than,
-                                viewState.foodModel.betterThanPercent
+                                viewState.transport.betterThanPercent
                             ),
                             color = Color.White,
                             style = MaterialTheme.typography.h4,
@@ -160,12 +131,12 @@ private fun FoodDetailsScreen(
                         Spacer(modifier = Modifier.height(36.dp))
                         ConsumptionItem(
                             description = stringResource(R.string.last_month),
-                            consumption = viewState.foodModel.lastMonthConsumption,
+                            consumption = viewState.transport.lastMonthConsumption,
                             unit = stringResource(R.string.kg)
                         )
                         ConsumptionItem(
                             description = stringResource(R.string.average_consumption),
-                            consumption = viewState.foodModel.averageConsumption,
+                            consumption = viewState.transport.averageConsumption,
                             unit = stringResource(R.string.kg)
                         )
 
@@ -183,23 +154,23 @@ private fun FoodDetailsScreen(
                                     .padding(horizontal = 8.dp)
                             ) {
                                 LegendItem(
-                                    description = stringResource(R.string.beef),
+                                    description = stringResource(R.string.walk),
                                     color = ProgressBeefColor
                                 )
                                 LegendItem(
-                                    description = stringResource(R.string.other_meat),
+                                    description = stringResource(R.string.bicycle),
                                     color = ProgressOtherMeatColor
                                 )
                                 LegendItem(
-                                    description = stringResource(R.string.animal_products),
+                                    description = stringResource(R.string.car),
                                     color = ProgressAnimalProductsColor
                                 )
                                 LegendItem(
-                                    description = stringResource(R.string.fruits_vegetables),
+                                    description = stringResource(R.string.bus),
                                     color = ProgressVegetablesColor
                                 )
                                 LegendItem(
-                                    description = stringResource(R.string.pastry),
+                                    description = stringResource(R.string.plane),
                                     color = ProgressPastryColor
                                 )
                             }
@@ -214,22 +185,7 @@ private fun FoodDetailsScreen(
                         .wrapContentHeight()
                         .padding(top = 24.dp, bottom = 48.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.tips),
-                        color = TextColorDarkGray2,
-                        style = TextStyle(
-                            fontFamily = FontFamily.Default,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 32.sp
-                        ),
-                        modifier = Modifier
-                            .padding(horizontal = 24.dp)
-                            .padding(bottom = 16.dp)
-                    )
-                    TipItem(
-                        title = viewState.foodModel.tip.title,
-                        description = viewState.foodModel.tip.description,
-                    )
+
                 }
             }
         }
@@ -237,43 +193,22 @@ private fun FoodDetailsScreen(
 }
 
 @Composable
-fun LegendItem(
-    description: String,
-    color: Color,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .size(10.dp)
-                .background(color)
-        )
-        Spacer(modifier = Modifier.width(10.dp))
-        Text(
-            text = description,
-            style = MaterialTheme.typography.body1,
-            color = Color.White,
-        )
-    }
-}
-
-@Composable
 private fun CarbonProgressBar(
-    viewState: FoodDetailsViewState
+    viewState: TransportDetailsViewState
 ) {
     val zeroAngle = 0f
     val beginning = 270f
     val fullAngle = 360f
     val animationDuration = 1200
-    val sum = (viewState.foodModel.beef + viewState.foodModel.otherMeat + viewState.foodModel.animalProducts + viewState.foodModel.vegetables + viewState.foodModel.pastry)
+    val sum =
+        (viewState.transport.walk + viewState.transport.bicycle + viewState.transport.car + viewState.transport.bus + viewState.transport.plane)
 
     val angleRatioBeef = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.foodModel.beef) {
+    LaunchedEffect(key1 = viewState.transport.walk) {
         angleRatioBeef.animateTo(
-            targetValue = viewState.foodModel.beef.toFloat() / sum,
+            targetValue = viewState.transport.walk.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -282,9 +217,9 @@ private fun CarbonProgressBar(
     val angleRatioOtherMeat = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.foodModel.otherMeat) {
+    LaunchedEffect(key1 = viewState.transport.bicycle) {
         angleRatioOtherMeat.animateTo(
-            targetValue = viewState.foodModel.otherMeat.toFloat() / sum,
+            targetValue = viewState.transport.bicycle.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -293,9 +228,9 @@ private fun CarbonProgressBar(
     val angleRatioAnimalProducts = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.foodModel.animalProducts) {
+    LaunchedEffect(key1 = viewState.transport.car) {
         angleRatioAnimalProducts.animateTo(
-            targetValue = viewState.foodModel.animalProducts.toFloat() / sum,
+            targetValue = viewState.transport.car.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -304,9 +239,9 @@ private fun CarbonProgressBar(
     val angleRatioVegetables = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.foodModel.vegetables) {
+    LaunchedEffect(key1 = viewState.transport.bus) {
         angleRatioVegetables.animateTo(
-            targetValue = viewState.foodModel.vegetables.toFloat() / sum,
+            targetValue = viewState.transport.bus.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -315,9 +250,9 @@ private fun CarbonProgressBar(
     val angleRatioPastry = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.foodModel.pastry) {
+    LaunchedEffect(key1 = viewState.transport.plane) {
         angleRatioPastry.animateTo(
-            targetValue = viewState.foodModel.pastry.toFloat() / sum,
+            targetValue = viewState.transport.plane.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -325,7 +260,7 @@ private fun CarbonProgressBar(
 
     Canvas(
         modifier = Modifier
-            .size(220.dp)
+            .size(210.dp)
             .aspectRatio(1f)
     ) {
         drawArc(
@@ -334,7 +269,7 @@ private fun CarbonProgressBar(
             sweepAngle = fullAngle,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
         drawArc(
             color = ProgressBeefColor,
@@ -342,7 +277,7 @@ private fun CarbonProgressBar(
             sweepAngle = angleToBeef,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
         drawArc(
             color = ProgressOtherMeatColor,
@@ -350,7 +285,7 @@ private fun CarbonProgressBar(
             sweepAngle = angleToOtherMeat,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
         drawArc(
             color = ProgressAnimalProductsColor,
@@ -358,7 +293,7 @@ private fun CarbonProgressBar(
             sweepAngle = angleToAnimalProducts,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
         drawArc(
             color = ProgressVegetablesColor,
@@ -366,7 +301,7 @@ private fun CarbonProgressBar(
             sweepAngle = angleToVegetables,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
         drawArc(
             color = ProgressPastryColor,
@@ -374,48 +309,24 @@ private fun CarbonProgressBar(
             sweepAngle = angleToPastry,
             useCenter = false,
             size = size,
-            style = Stroke(width = 22.dp.toPx())
+            style = Stroke(width = 24.dp.toPx())
         )
     }
 }
 
 @Composable
-fun ConsumptionItem(
-    description: String,
-    consumption: Float,
-    unit: String,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = description,
-            color = Color.White,
-            style = MaterialTheme.typography.h4,
-        )
-        Text(
-            text = "$consumption $unit",
-            color = Color.White,
-            style = MaterialTheme.typography.h4,
-        )
-    }
-}
-
-@Composable
-private fun FoodDetailsDialog(
-    viewState: FoodDetailsViewState,
-    intentChannel: MutableSharedFlow<FoodDetailsIntent>
+private fun TransportDetailsDialog(
+    viewState: TransportDetailsViewState,
+    intentChannel: MutableSharedFlow<TransportDetailsIntent>
 ) {
 
 }
 
-@Preview("FoodDetails")
-@Preview("FoodDetails (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("TransportDetails")
+@Preview("TransportDetails (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun PreviewFoodDetailsScreen() {
+private fun PreviewTransportDetailsScreen() {
     FonHakatonAndroidAppTheme() {
-//        FoodDetailsScreen(FoodDetailsViewState())
+//        TransportDetailsScreen(TransportDetailsViewState())
     }
 }

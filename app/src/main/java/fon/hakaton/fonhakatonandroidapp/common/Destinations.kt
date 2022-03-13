@@ -62,6 +62,8 @@ sealed class Destinations(val route: String, vararg params: String) {
             )
         }
     }
+
+    object TransportDetailsScreen : Destinations("transport")
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {

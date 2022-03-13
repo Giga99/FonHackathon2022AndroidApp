@@ -12,6 +12,7 @@ import fon.hakaton.fonhakatonandroidapp.presentation.food_details.FoodDetailsScr
 import fon.hakaton.fonhakatonandroidapp.presentation.food_edit_details.FoodEditDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.home.HomeScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.login.LoginScreen
+import fon.hakaton.fonhakatonandroidapp.presentation.transport_details.TransportDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.utilities_details.UtilitiesDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.utilities_edit_details.UtilitiesEditDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
@@ -54,6 +55,10 @@ fun MainScreen() {
 
                 composable(route = Destinations.FoodEditDetailsScreen.fullRoute) {
                     FoodEditDetailsScreen(navController = navController)
+                }
+
+                composable(route = Destinations.TransportDetailsScreen.fullRoute) {
+                    TransportDetailsScreen(navController = navController)
                 }
             }
         }

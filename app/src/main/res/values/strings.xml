@@ -38,4 +38,9 @@
     <string name="animal_products_eggs_milk">Animal products (eggs, milk)</string>
     <string name="fruits_vegetables">Fruits &amp; vegetables</string>
     <string name="pastry">Pastry</string>
+    <string name="walk">Walk</string>
+    <string name="bicycle">Bicycle</string>
+    <string name="car">Car</string>
+    <string name="bus">Bus</string>
+    <string name="plane">Plane</string>
 </resources>

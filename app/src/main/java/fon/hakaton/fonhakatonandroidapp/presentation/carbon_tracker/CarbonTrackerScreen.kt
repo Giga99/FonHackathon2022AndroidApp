@@ -196,7 +196,7 @@ private fun CarbonTrackerScreen(
                     icon = painterResource(R.drawable.car),
                     name = stringResource(R.string.transport),
                     value = stringResource(R.string.kg_mo, "112.8"),
-                    onClick = {}
+                    onClick = { navController.navigate(Destinations.TransportDetailsScreen.fullRoute) }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.fork_knife),
