@@ -13,6 +13,9 @@ sealed class UtilitiesDetailsSideEffect {
 }
 
 data class UtilitiesDetailsViewState(
+    val id: Long = 0,
+    val username: String = "",
+    val name: String = "",
     val utility: UtilityModel = UtilityModel(),
     val tip: TipModel = TipModel(
         "Standby power draw",

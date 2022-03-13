@@ -118,7 +118,7 @@ private fun CarbonTrackerScreen(
             ) {
                 val carbonOverall = viewState.carbonOverviewModel.carbonOverall
                 Text(
-                    text = carbonOverall.toString(),
+                    text = String.format("%.2f", carbonOverall),
                     color = Color.Black,
                     style = MaterialTheme.typography.caption
                 )

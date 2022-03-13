@@ -16,6 +16,8 @@ sealed class UtilitiesEditDetailsSideEffect {
 }
 
 data class UtilitiesEditDetailsViewState(
+    val id: Long = 0,
+    val username: String = "",
     val name: String = "Electricity",
     val numberOfResidents: Int = 4,
     val apartmentSize: Int = 60,

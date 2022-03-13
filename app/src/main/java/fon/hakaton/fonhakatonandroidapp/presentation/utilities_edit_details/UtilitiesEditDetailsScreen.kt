@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
+import fon.hakaton.fonhakatonandroidapp.common.Destinations
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -51,7 +52,7 @@ private fun UtilitiesEditDetailsSideEffects(
                 }
 
                 is UtilitiesEditDetailsSideEffect.InputFinished -> {
-                    navController.popBackStack()
+                    navController.popBackStack(Destinations.HomeScreen.fullRoute, inclusive = false)
                 }
             }
         }

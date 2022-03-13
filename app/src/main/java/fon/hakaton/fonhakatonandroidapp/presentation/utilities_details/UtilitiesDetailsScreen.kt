@@ -74,9 +74,11 @@ private fun UtilitiesDetailsScreen(
                 onClick = {
                     navController.navigate(
                         Destinations.UtilitiesEditDetailsScreen(
-                            viewState.utility.name,
-                            viewState.utility.lastMonthConsumption,
-                            viewState.utility.renewableEnergyPercent
+                            id = viewState.id,
+                            username = viewState.username,
+                            name = viewState.utility.name,
+                            consumption = viewState.utility.lastMonthConsumption,
+                            renewableEnergy = viewState.utility.renewableEnergyPercent
                         )
                     )
                 },

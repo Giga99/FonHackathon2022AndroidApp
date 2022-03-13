@@ -45,13 +45,30 @@ sealed class Destinations(val route: String, vararg params: String) {
     }
 
     object UtilitiesEditDetailsScreen :
-        Destinations("utilities/edit", "name", "consumption", "renewable_energy") {
+        Destinations(
+            "utilities/edit",
+            "id",
+            "username",
+            "name",
+            "consumption",
+            "renewable_energy"
+        ) {
+        const val ID = "id"
+        const val USERNAME = "username"
         const val NAME = "name"
         const val CONSUMPTION = "consumption"
         const val RENEWABLE_ENERGY = "renewable_energy"
 
-        operator fun invoke(name: String, consumption: Long, renewableEnergy: Int?): String {
+        operator fun invoke(
+            id: Long,
+            username: String,
+            name: String,
+            consumption: Long,
+            renewableEnergy: Int?
+        ): String {
             return route.appendParams(
+                ID to id,
+                USERNAME to username,
                 NAME to name,
                 CONSUMPTION to consumption,
                 RENEWABLE_ENERGY to renewableEnergy,

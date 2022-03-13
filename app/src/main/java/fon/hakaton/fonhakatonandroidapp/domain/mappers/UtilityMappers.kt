@@ -15,7 +15,7 @@ fun ElectricityCarbonResponse.toModel() =
         carbonFootprint = electricity_c,
         lastMonthConsumption = electricityList.sortedBy { it.month }.reversed().first().amount,
         averageConsumption = electricityList.getAverage(),
-        lastFiveMonths = electricityList.sortedBy { it.month }.reversed().takeLast(5)
+        lastFiveMonths = electricityList.sortedBy { it.month }.takeLast(5)
             .mapIndexed { index, item ->
                 when (index) {
                     0 -> Pair("Feb", item.amount)

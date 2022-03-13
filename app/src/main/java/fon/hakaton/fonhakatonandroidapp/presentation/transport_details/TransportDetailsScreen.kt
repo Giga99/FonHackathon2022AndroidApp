@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.ArrowBackIos
@@ -236,30 +237,30 @@ private fun SuggestedRoute() {
                     tint = ButtonLightGreen,
                     modifier = Modifier.size(26.dp)
                 )
-//                Card(
-//                    modifier = Modifier
-//                        .size(6.dp)
-//                        .padding(top = 8.dp),
-//                    shape = CircleShape,
-//                    backgroundColor = TextColorGray
-//                ) {
-//                }
-//                Card(
-//                    modifier = Modifier
-//                        .size(6.dp)
-//                        .padding(top = 8.dp),
-//                    shape = CircleShape,
-//                    backgroundColor = TextColorGray
-//                ) {
-//                }
-//                Card(
-//                    modifier = Modifier
-//                        .size(6.dp)
-//                        .padding(top = 8.dp),
-//                    shape = CircleShape,
-//                    backgroundColor = TextColorGray
-//                ) {
-//                }
+                Card(
+                    modifier = Modifier
+                        .size(6.dp)
+                        .padding(top = 8.dp),
+                    shape = CircleShape,
+                    backgroundColor = TextColorGray
+                ) {
+                }
+                Card(
+                    modifier = Modifier
+                        .size(6.dp)
+                        .padding(top = 8.dp),
+                    shape = CircleShape,
+                    backgroundColor = TextColorGray
+                ) {
+                }
+                Card(
+                    modifier = Modifier
+                        .size(6.dp)
+                        .padding(top = 8.dp),
+                    shape = CircleShape,
+                    backgroundColor = TextColorGray
+                ) {
+                }
                 Icon(
                     painter = painterResource(R.drawable.end_destination),
                     contentDescription = "",
