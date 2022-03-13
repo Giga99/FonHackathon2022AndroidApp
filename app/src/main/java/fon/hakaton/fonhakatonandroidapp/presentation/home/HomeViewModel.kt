@@ -20,6 +20,12 @@ class HomeViewModel @Inject constructor(
         when (intent) {
             is HomeIntent.BackClicked -> {}
             is HomeIntent.ErrorDialogDismissed -> {}
+            is HomeIntent.OverviewTabClicked -> {
+                setState { copy(overviewSelected = true) }
+            }
+            is HomeIntent.TipsTabClicked -> {
+                setState { copy(overviewSelected = false) }
+            }
         }
     }
 }
