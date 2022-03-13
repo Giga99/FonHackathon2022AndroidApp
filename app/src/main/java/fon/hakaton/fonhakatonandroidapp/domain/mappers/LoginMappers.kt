@@ -8,4 +8,4 @@ import fon.hakaton.fonhakatonandroidapp.domain.models.LoginModel
  * Created 12.3.22. at 20:20
  */
 
-fun LoginModel.toRequest() = LoginRequest(email = email, password = password)
+fun LoginModel.toRequest() = LoginRequest(username = email, password = password)

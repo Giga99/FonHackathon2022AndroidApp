@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -115,7 +116,7 @@ private fun LoginScreen(
                     ),
                 )
                 TextField(
-                    value = viewState.passwordText,
+                    value = viewState.password,
                     onValueChange = { intentChannel.tryEmit(LoginIntent.PasswordInputChanged(it)) },
                     placeholder = { Text(text = stringResource(R.string.password)) },
                     isError = viewState.emailError != null,
@@ -132,6 +133,7 @@ private fun LoginScreen(
                         disabledIndicatorColor = Color.Transparent,
                         backgroundColor = TextInputGrayColor,
                     ),
+                    visualTransformation = PasswordVisualTransformation()
                 )
                 Spacer(modifier = Modifier.height(60.dp))
                 Button(

@@ -15,7 +15,6 @@ sealed class LoginSideEffect {
 data class LoginViewState(
     val email: String = "",
     val password: String = "",
-    val passwordText: String = "",
     val emailError: String? = null,
     val passwordError: String? = null,
 )

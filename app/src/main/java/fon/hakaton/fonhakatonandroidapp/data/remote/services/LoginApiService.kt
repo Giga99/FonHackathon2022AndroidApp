@@ -1,6 +1,8 @@
 package fon.hakaton.fonhakatonandroidapp.data.remote.services
 
-import retrofit2.http.GET
+import fon.hakaton.fonhakatonandroidapp.data.remote.requests.LoginRequest
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 /**
  * @author igorstevanovic
@@ -8,7 +10,6 @@ import retrofit2.http.GET
  */
 interface LoginApiService {
 
-    // TODO add path
-    @GET("login")
-    suspend fun login(): Unit
+    @POST("user/save")
+    suspend fun login(@Body request: LoginRequest): Unit
 }
