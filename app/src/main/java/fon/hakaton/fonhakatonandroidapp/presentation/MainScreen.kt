@@ -11,6 +11,7 @@ import fon.hakaton.fonhakatonandroidapp.common.Destinations
 import fon.hakaton.fonhakatonandroidapp.presentation.home.HomeScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.login.LoginScreen
 import fon.hakaton.fonhakatonandroidapp.presentation.utilities_details.UtilitiesDetailsScreen
+import fon.hakaton.fonhakatonandroidapp.presentation.utilities_edit_details.UtilitiesEditDetailsScreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
 
 /**
@@ -39,6 +40,10 @@ fun MainScreen() {
 
                 composable(route = Destinations.UtilitiesDetailsScreen.fullRoute) {
                     UtilitiesDetailsScreen(navController = navController)
+                }
+
+                composable(route = Destinations.UtilitiesEditDetailsScreen.fullRoute) {
+                    UtilitiesEditDetailsScreen(navController = navController)
                 }
             }
         }

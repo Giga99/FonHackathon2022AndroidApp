@@ -8,8 +8,8 @@ data class UtilityModel(
     val name: String = "Electricity",
     val betterThanPercent: String = "40%",
     val carbonFootprint: Float = 42.5f,
-    val lastMonthConsumption: Int = 891,
-    val averageConsumption: Int = 936,
+    val lastMonthConsumption: Long = 891,
+    val averageConsumption: Long = 936,
     val lastFiveMonths: List<Pair<String, Int>> = listOf(
         "Nov" to 930,
         "Dec" to 960,

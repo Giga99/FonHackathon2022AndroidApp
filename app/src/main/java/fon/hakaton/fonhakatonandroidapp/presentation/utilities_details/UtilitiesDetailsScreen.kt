@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
+import fon.hakaton.fonhakatonandroidapp.common.Destinations
 import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipItem
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -66,7 +68,20 @@ private fun UtilitiesDetailsScreen(
 ) {
     Scaffold(
         modifier = Modifier
-            .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical)
+            .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navController.navigate(Destinations.UtilitiesEditDetailsScreen(viewState.utility.lastMonthConsumption)) },
+                backgroundColor = ButtonDarkGreen,
+                modifier = Modifier.padding(bottom = 16.dp)
+            ) {
+                Icon(
+                    imageVector = MaterialTheme.icons.Add,
+                    contentDescription = "",
+                    tint = Color.White,
+                )
+            }
+        }
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             Card(
@@ -165,7 +180,7 @@ private fun UtilitiesDetailsScreen(
 @Composable
 private fun ConsumptionItem(
     description: String,
-    consumption: Int,
+    consumption: Long,
     unit: String,
 ) {
     Row(

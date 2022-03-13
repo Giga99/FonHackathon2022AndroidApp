@@ -23,11 +23,11 @@ class LoginViewModel @Inject constructor(
         when (intent) {
             is LoginIntent.ErrorDialogDismissed -> {}
             is LoginIntent.EmailInputChanged -> {
-                setState { copy(email = intent.email) }
+                setState { copy(email = intent.email.trim()) }
             }
             is LoginIntent.PasswordInputChanged -> {
                 setState {
-                    copy(password = intent.password)
+                    copy(password = intent.password.trim())
                 }
             }
             is LoginIntent.LoginButtonClicked -> {

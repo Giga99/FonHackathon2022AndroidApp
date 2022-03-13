@@ -20,6 +20,14 @@ sealed class Destinations(val route: String, vararg params: String) {
             return route.appendParams(IS_ELECTRICITY to isElectricity)
         }
     }
+
+    object UtilitiesEditDetailsScreen : Destinations("utilities/edit", "consumption") {
+        const val CONSUMPTION = "consumption"
+
+        operator fun invoke(consumption: Long): String {
+            return route.appendParams(CONSUMPTION to consumption)
+        }
+    }
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {
