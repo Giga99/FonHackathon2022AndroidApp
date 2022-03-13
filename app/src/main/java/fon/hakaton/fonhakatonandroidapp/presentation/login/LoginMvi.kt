@@ -9,7 +9,7 @@ sealed class LoginIntent {
 
 sealed class LoginSideEffect {
     data class ShowMessage(val text: String) : LoginSideEffect()
-    object SuccessfulLogin : LoginSideEffect()
+    data class SuccessfulLogin(val id: Int, val username: String, val name: String) : LoginSideEffect()
 }
 
 data class LoginViewState(

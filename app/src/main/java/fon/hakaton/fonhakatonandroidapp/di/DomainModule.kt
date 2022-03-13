@@ -4,7 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fon.hakaton.fonhakatonandroidapp.data.datasource.HomeRepoImpl
 import fon.hakaton.fonhakatonandroidapp.data.datasource.LoginRepoImpl
+import fon.hakaton.fonhakatonandroidapp.domain.repos.HomeRepo
 import fon.hakaton.fonhakatonandroidapp.domain.repos.LoginRepo
 
 /**
@@ -17,4 +19,7 @@ interface DomainModule {
 
     @Binds
     fun bindLoginRepo(loginRepoImpl: LoginRepoImpl): LoginRepo
+
+    @Binds
+    fun bindHomeRepo(homeRepoImpl: HomeRepoImpl): HomeRepo
 }

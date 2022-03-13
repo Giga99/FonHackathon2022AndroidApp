@@ -20,7 +20,6 @@ class LoginRepoImpl @Inject constructor(
 ) : LoginRepo {
 
     override suspend fun login(loginModel: LoginModel) = withContext(Dispatchers.IO) {
-        Timber.d("REQUEST: $loginModel")
         try {
             val response = loginApiService.login(loginModel.toRequest())
             Result.Success(response.toModel())

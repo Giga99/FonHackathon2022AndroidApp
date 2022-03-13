@@ -95,7 +95,12 @@ private fun HomeScreen(
         }
     ) {
         if (viewState.overviewSelected) {
-            CarbonTrackerScreen(navController = navController)
+            CarbonTrackerScreen(
+                id = viewState.id,
+                username = viewState.username,
+                name = viewState.name,
+                navController = navController
+            )
         } else {
             TipsScreen(navController = navController)
         }

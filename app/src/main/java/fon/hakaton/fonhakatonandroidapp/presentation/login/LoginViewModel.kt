@@ -37,7 +37,13 @@ class LoginViewModel @Inject constructor(
                         loginRepo.login(LoginModel(getState().username, getState().password))
                     when (result) {
                         is Result.Success -> {
-                            _sideEffects.tryEmit(LoginSideEffect.SuccessfulLogin)
+                            _sideEffects.tryEmit(
+                                LoginSideEffect.SuccessfulLogin(
+                                    result.data?.id ?: 0,
+                                    result.data?.username ?: "",
+                                    result.data?.name ?: ""
+                                )
+                            )
                         }
                         is Result.Error -> {
                             Timber.d(result.message)

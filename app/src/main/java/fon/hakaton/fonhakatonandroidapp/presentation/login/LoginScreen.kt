@@ -52,7 +52,13 @@ private fun LoginSideEffects(
                 }
 
                 is LoginSideEffect.SuccessfulLogin -> {
-                    navController.navigate(Destinations.HomeScreen.fullRoute)
+                    navController.navigate(
+                        Destinations.HomeScreen(
+                            sideEffect.id,
+                            sideEffect.username,
+                            sideEffect.name.split(" ").first()
+                        )
+                    )
                 }
             }
         }

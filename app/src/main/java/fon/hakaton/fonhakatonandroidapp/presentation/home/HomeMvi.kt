@@ -13,4 +13,7 @@ sealed class HomeSideEffect {
 
 data class HomeViewState(
     val overviewSelected: Boolean = true,
+    val id: Int = 0,
+    val username: String = "",
+    val name: String = "",
 )

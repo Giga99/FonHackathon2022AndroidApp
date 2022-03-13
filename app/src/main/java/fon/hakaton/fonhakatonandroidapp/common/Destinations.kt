@@ -11,7 +11,15 @@ sealed class Destinations(val route: String, vararg params: String) {
 
     object LoginScreen : Destinations("login")
 
-    object HomeScreen : Destinations("home")
+    object HomeScreen : Destinations("home", "id", "username", "name") {
+        const val ID = "id"
+        const val USERNAME = "username"
+        const val NAME = "name"
+
+        operator fun invoke(id: Int, username: String, name: String): String {
+            return route.appendParams(ID to id, USERNAME to username, NAME to name)
+        }
+    }
 
     object UtilitiesDetailsScreen : Destinations("utilities", "isElectricity") {
         const val IS_ELECTRICITY = "isElectricity"

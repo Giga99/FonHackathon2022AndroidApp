@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import fon.hakaton.fonhakatonandroidapp.R
 import fon.hakaton.fonhakatonandroidapp.common.Destinations
+import fon.hakaton.fonhakatonandroidapp.domain.models.CarbonOverviewModel
 import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -39,11 +40,16 @@ import kotlinx.coroutines.flow.collect
 
 @Composable
 fun CarbonTrackerScreen(
+    id: Int,
+    username: String,
+    name: String,
     navController: NavController,
     viewModel: CarbonTrackerViewModel = hiltViewModel(),
 ) = viewModel.Collect { viewState, intentChannel, sideEffects ->
+    viewModel.getData(id, username)
+
     CarbonTrackerSideEffects(sideEffects)
-    CarbonTrackerScreen(viewState, navController, intentChannel)
+    CarbonTrackerScreen(name, viewState, navController, intentChannel)
     CarbonTrackerDialog(viewState, intentChannel)
 }
 
@@ -65,6 +71,7 @@ private fun CarbonTrackerSideEffects(
 
 @Composable
 private fun CarbonTrackerScreen(
+    name: String,
     viewState: CarbonTrackerViewState,
     navController: NavController,
     intentChannel: MutableSharedFlow<CarbonTrackerIntent> = MutableSharedFlow()
@@ -79,9 +86,8 @@ private fun CarbonTrackerScreen(
             modifier = Modifier
                 .padding(20.dp)
         ) {
-            // TODO add here name
             Text(
-                text = stringResource(R.string.welcome_back, "Igor"),
+                text = stringResource(R.string.welcome_back, name),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),
@@ -104,12 +110,12 @@ private fun CarbonTrackerScreen(
                 .wrapContentHeight(),
             contentAlignment = Alignment.Center
         ) {
-            CarbonProgressBar(viewState)
+            CarbonProgressBar(viewState.carbonOverviewModel)
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = (viewState.transport + viewState.water + viewState.food + viewState.electricity).toString(),
+                    text = viewState.carbonOverviewModel.carbonOverall.toString(),
                     color = Color.Black,
                     style = MaterialTheme.typography.caption
                 )
@@ -149,7 +155,7 @@ private fun CarbonTrackerScreen(
 
         Spacer(modifier = Modifier.height(48.dp))
         Text(
-            text = stringResource(R.string.you_are_better_than, "80%"),
+            text = stringResource(R.string.you_are_better_than, "${viewState.carbonOverviewModel.betterThanPercentage}%"),
             color = Color.Black,
             style = MaterialTheme.typography.h2,
             modifier = Modifier.fillMaxWidth(),
@@ -171,7 +177,7 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.bolt),
                     name = stringResource(R.string.electricity),
-                    value = stringResource(R.string.kg_mo, "42.5"),
+                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.electricityAmount),
                     onClick = {
                         navController.navigate(
                             Destinations.UtilitiesDetailsScreen(
@@ -183,7 +189,7 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.drop),
                     name = stringResource(R.string.water),
-                    value = stringResource(R.string.kg_mo, "5.1"),
+                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.waterAmount),
                     onClick = {
                         navController.navigate(
                             Destinations.UtilitiesDetailsScreen(
@@ -195,13 +201,13 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.car),
                     name = stringResource(R.string.transport),
-                    value = stringResource(R.string.kg_mo, "112.8"),
+                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.transportAmount),
                     onClick = { navController.navigate(Destinations.TransportDetailsScreen.fullRoute) }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.fork_knife),
                     name = stringResource(R.string.food),
-                    value = stringResource(R.string.kg_mo, "40.8"),
+                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.foodAmount),
                     showDivider = false,
                     onClick = { navController.navigate(Destinations.FoodDetailsScreen.fullRoute) }
                 )
@@ -292,20 +298,21 @@ private fun LegendItem(
 
 @Composable
 private fun CarbonProgressBar(
-    viewState: CarbonTrackerViewState
+    carbonOverviewModel: CarbonOverviewModel
 ) {
     val zeroAngle = 0f
     val beginning = 270f
     val fullAngle = 360f
     val animationDuration = 1200
-    val sum = (viewState.transport + viewState.food + viewState.water + viewState.electricity)
+    val sum =
+        (carbonOverviewModel.transportAmount + carbonOverviewModel.foodAmount + carbonOverviewModel.waterAmount + carbonOverviewModel.electricityAmount)
 
     val angleRatioTransport = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.transport) {
+    LaunchedEffect(key1 = carbonOverviewModel.transportAmount) {
         angleRatioTransport.animateTo(
-            targetValue = viewState.transport / sum,
+            targetValue = carbonOverviewModel.transportAmount / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -314,9 +321,9 @@ private fun CarbonProgressBar(
     val angleRatioWater = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.water) {
+    LaunchedEffect(key1 = carbonOverviewModel.waterAmount) {
         angleRatioWater.animateTo(
-            targetValue = viewState.water / sum,
+            targetValue = carbonOverviewModel.waterAmount / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -325,9 +332,9 @@ private fun CarbonProgressBar(
     val angleRatioFood = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.food) {
+    LaunchedEffect(key1 = carbonOverviewModel.foodAmount) {
         angleRatioFood.animateTo(
-            targetValue = viewState.food / sum,
+            targetValue = carbonOverviewModel.foodAmount / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -336,9 +343,9 @@ private fun CarbonProgressBar(
     val angleRatioElectricity = remember {
         Animatable(zeroAngle)
     }
-    LaunchedEffect(key1 = viewState.electricity) {
+    LaunchedEffect(key1 = carbonOverviewModel.electricityAmount) {
         angleRatioElectricity.animateTo(
-            targetValue = viewState.electricity / sum,
+            targetValue = carbonOverviewModel.electricityAmount / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
