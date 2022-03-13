@@ -1,65 +1,50 @@
 package fon.hakaton.fonhakatonandroidapp.presentation.utilities_details
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fon.hakaton.fonhakatonandroidapp.common.AppViewModel
 import fon.hakaton.fonhakatonandroidapp.common.Destinations
-import fon.hakaton.fonhakatonandroidapp.domain.models.TipModel
+import fon.hakaton.fonhakatonandroidapp.common.Result
+import fon.hakaton.fonhakatonandroidapp.data.remote.requests.CarbonUser
+import fon.hakaton.fonhakatonandroidapp.data.remote.requests.UserRequest2
 import fon.hakaton.fonhakatonandroidapp.domain.models.UtilityModel
+import fon.hakaton.fonhakatonandroidapp.domain.repos.UtilitiesRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class UtilitiesDetailsViewModel @Inject constructor(
+    private val utilitiesRepo: UtilitiesRepo,
     savedStateHandle: SavedStateHandle
 ) : AppViewModel<UtilitiesDetailsViewState, UtilitiesDetailsIntent, UtilitiesDetailsSideEffect>(
     viewState = UtilitiesDetailsViewState()
 ) {
 
     init {
+        val id = savedStateHandle.get<String>(Destinations.UtilitiesDetailsScreen.ID)?.toLong() ?: 0
+        val username =
+            savedStateHandle.get<String>(Destinations.UtilitiesDetailsScreen.USERNAME) ?: ""
+        val name =
+            savedStateHandle.get<String>(Destinations.UtilitiesDetailsScreen.NAME) ?: ""
         val isElectricity =
-            savedStateHandle.get<String>(Destinations.UtilitiesDetailsScreen.IS_ELECTRICITY).toBoolean()
-        setState {
-            copy(
-                utility = if (isElectricity) {
-                    UtilityModel(
-                        name = "Electricity",
-                        betterThanPercent = "40%",
-                        lastMonthConsumption = 891,
-                        averageConsumption = 936,
-                        lastFiveMonths = listOf(
-                            "Nov" to 930,
-                            "Dec" to 560,
-                            "Jan" to 990,
-                            "Feb" to 930,
-                            "Mar" to 780
-                        ),
-                        tip = TipModel(
-                            "Standby power draw",
-                            "Despite being “switched off” almost all electrical devices continue operate in a standby mode and continue using electricity even when they’re not in active use. This standby power draw accounts for about 10% of an average household's annual electricity use. Unplug your appliances or turn them off at the socket to reduce your monthly carbon footprint by x%."
-                        ),
-                        isElectricity = isElectricity,
-                    )
-                } else {
-                    UtilityModel(
-                        name = "Water",
-                        betterThanPercent = "20%",
-                        lastMonthConsumption = 1400,
-                        averageConsumption = 1200,
-                        lastFiveMonths = listOf(
-                            "Nov" to 1400,
-                            "Dec" to 1400,
-                            "Jan" to 1000,
-                            "Feb" to 1000,
-                            "Mar" to 1200
-                        ),
-                        tip = TipModel(
-                            "Standby power draw",
-                            "Despite being “switched off” almost all electrical devices continue operate in a standby mode and continue using electricity even when they’re not in active use. This standby power draw accounts for about 10% of an average household's annual electricity use. Unplug your appliances or turn them off at the socket to reduce your monthly carbon footprint by x%."
-                        ),
-                        isElectricity = isElectricity,
-                    )
-                }
+            savedStateHandle.get<String>(Destinations.UtilitiesDetailsScreen.IS_ELECTRICITY)
+                .toBoolean()
+
+        viewModelScope.launch(context = Dispatchers.IO) {
+            val response = utilitiesRepo.getUtility(
+                UserRequest2(carbonUser = CarbonUser(id = id, username = username)),
+                isElectricity
             )
+            if (response is Result.Success) {
+                setState {
+                    copy(utility = response.data ?: UtilityModel())
+                }
+            } else if (response is Result.Error) {
+                Timber.d("RESULT: ${response.message}")
+            }
         }
     }
 

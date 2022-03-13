@@ -49,7 +49,7 @@ fun CarbonTrackerScreen(
     viewModel.getData(id, username)
 
     CarbonTrackerSideEffects(sideEffects)
-    CarbonTrackerScreen(name, viewState, navController, intentChannel)
+    CarbonTrackerScreen(id, username, name, viewState, navController, intentChannel)
     CarbonTrackerDialog(viewState, intentChannel)
 }
 
@@ -71,6 +71,8 @@ private fun CarbonTrackerSideEffects(
 
 @Composable
 private fun CarbonTrackerScreen(
+    id: Int,
+    username: String,
     name: String,
     viewState: CarbonTrackerViewState,
     navController: NavController,
@@ -114,8 +116,9 @@ private fun CarbonTrackerScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val carbonOverall = viewState.carbonOverviewModel.carbonOverall
                 Text(
-                    text = viewState.carbonOverviewModel.carbonOverall.toString(),
+                    text = carbonOverall.toString(),
                     color = Color.Black,
                     style = MaterialTheme.typography.caption
                 )
@@ -155,7 +158,10 @@ private fun CarbonTrackerScreen(
 
         Spacer(modifier = Modifier.height(48.dp))
         Text(
-            text = stringResource(R.string.you_are_better_than, "${viewState.carbonOverviewModel.betterThanPercentage}%"),
+            text = stringResource(
+                R.string.you_are_better_than,
+                "${viewState.carbonOverviewModel.betterThanPercentage}%"
+            ),
             color = Color.Black,
             style = MaterialTheme.typography.h2,
             modifier = Modifier.fillMaxWidth(),
@@ -177,10 +183,16 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.bolt),
                     name = stringResource(R.string.electricity),
-                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.electricityAmount),
+                    value = stringResource(
+                        R.string.kg_mo,
+                        viewState.carbonOverviewModel.electricityAmount
+                    ),
                     onClick = {
                         navController.navigate(
                             Destinations.UtilitiesDetailsScreen(
+                                id = id,
+                                username = username,
+                                name = name,
                                 isElectricity = true
                             )
                         )
@@ -189,11 +201,17 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.drop),
                     name = stringResource(R.string.water),
-                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.waterAmount),
+                    value = stringResource(
+                        R.string.kg_mo,
+                        viewState.carbonOverviewModel.waterAmount
+                    ),
                     onClick = {
                         navController.navigate(
                             Destinations.UtilitiesDetailsScreen(
-                                isElectricity = false
+                                id = id,
+                                username = username,
+                                name = name,
+                                isElectricity = false,
                             )
                         )
                     }
@@ -201,13 +219,19 @@ private fun CarbonTrackerScreen(
                 CarbonItem(
                     icon = painterResource(R.drawable.car),
                     name = stringResource(R.string.transport),
-                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.transportAmount),
+                    value = stringResource(
+                        R.string.kg_mo,
+                        viewState.carbonOverviewModel.transportAmount
+                    ),
                     onClick = { navController.navigate(Destinations.TransportDetailsScreen.fullRoute) }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.fork_knife),
                     name = stringResource(R.string.food),
-                    value = stringResource(R.string.kg_mo, viewState.carbonOverviewModel.foodAmount),
+                    value = stringResource(
+                        R.string.kg_mo,
+                        viewState.carbonOverviewModel.foodAmount
+                    ),
                     showDivider = false,
                     onClick = { navController.navigate(Destinations.FoodDetailsScreen.fullRoute) }
                 )

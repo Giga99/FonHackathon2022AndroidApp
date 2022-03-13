@@ -1,7 +1,11 @@
 package fon.hakaton.fonhakatonandroidapp.data.remote.services
 
-import fon.hakaton.fonhakatonandroidapp.data.remote.requests.UserRequest
+import fon.hakaton.fonhakatonandroidapp.data.remote.requests.UserRequest2
+import fon.hakaton.fonhakatonandroidapp.data.remote.responses.ElectricityCarbonResponse
 import fon.hakaton.fonhakatonandroidapp.data.remote.responses.UtilityResponse
+import fon.hakaton.fonhakatonandroidapp.data.remote.responses.WaterCarbonResponse
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 /**
  * @author igorstevanovic
@@ -9,7 +13,15 @@ import fon.hakaton.fonhakatonandroidapp.data.remote.responses.UtilityResponse
  */
 interface UtilitiesApiService {
 
-    fun getElectricity(request: UserRequest): List<UtilityResponse>
+    @POST("electricity/details")
+    suspend fun getElectricity(@Body request: UserRequest2): ElectricityCarbonResponse
 
-    fun getWater(request: UserRequest): List<UtilityResponse>
+    @POST("electricity/save")
+    suspend fun saveElectricity(@Body request: UtilityResponse)
+
+    @POST("water/details")
+    suspend fun getWater(@Body request: UserRequest2): WaterCarbonResponse
+
+    @POST("water/save")
+    suspend fun saveWater(@Body request: UtilityResponse)
 }

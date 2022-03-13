@@ -76,7 +76,7 @@ private fun UtilitiesDetailsScreen(
                         Destinations.UtilitiesEditDetailsScreen(
                             viewState.utility.name,
                             viewState.utility.lastMonthConsumption,
-                            if (viewState.utility.isElectricity) viewState.utility.renewableEnergyPercent else null
+                            viewState.utility.renewableEnergyPercent
                         )
                     )
                 },
@@ -91,9 +91,11 @@ private fun UtilitiesDetailsScreen(
             }
         }
     ) {
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ) {
             item {
                 Card(
                     modifier = Modifier
@@ -140,21 +142,21 @@ private fun UtilitiesDetailsScreen(
                                 style = MaterialTheme.typography.h1,
                             )
                         }
-                        Text(
-                            text = stringResource(
-                                R.string.better_than,
-                                viewState.utility.betterThanPercent
-                            ),
-                            color = Color.White,
-                            style = MaterialTheme.typography.h4,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 4.dp)
-                        )
+//                        Text(
+//                            text = stringResource(
+//                                R.string.better_than,
+//                                viewState.utility.betterThanPercent
+//                            ),
+//                            color = Color.White,
+//                            style = MaterialTheme.typography.h4,
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(top = 4.dp)
+//                        )
                         Spacer(modifier = Modifier.height(36.dp))
                         ConsumptionItem(
                             description = stringResource(R.string.last_month),
-                            consumption = viewState.utility.lastMonthConsumption,
+                            consumption = viewState.utility.lastMonthConsumption.toFloat(),
                             unit = stringResource(if (viewState.utility.isElectricity) R.string.electricity_unit else R.string.water_unit)
                         )
                         ConsumptionItem(
@@ -196,8 +198,8 @@ private fun UtilitiesDetailsScreen(
                             .padding(bottom = 16.dp)
                     )
                     TipItem(
-                        title = viewState.utility.tip.title,
-                        description = viewState.utility.tip.description,
+                        title = viewState.tip.title,
+                        description = viewState.tip.description,
                     )
                 }
             }
@@ -208,7 +210,7 @@ private fun UtilitiesDetailsScreen(
 @Composable
 private fun ConsumptionItem(
     description: String,
-    consumption: Long,
+    consumption: Float,
     unit: String,
 ) {
     Row(

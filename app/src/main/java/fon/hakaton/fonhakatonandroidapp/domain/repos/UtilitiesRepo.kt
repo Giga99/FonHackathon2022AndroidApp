@@ -1,6 +1,7 @@
 package fon.hakaton.fonhakatonandroidapp.domain.repos
 
-import fon.hakaton.fonhakatonandroidapp.data.remote.requests.UserRequest
+import fon.hakaton.fonhakatonandroidapp.common.Result
+import fon.hakaton.fonhakatonandroidapp.data.remote.requests.UserRequest2
 import fon.hakaton.fonhakatonandroidapp.domain.models.UtilityModel
 
 /**
@@ -9,5 +10,7 @@ import fon.hakaton.fonhakatonandroidapp.domain.models.UtilityModel
  */
 interface UtilitiesRepo {
 
-    suspend fun getUtility(request: UserRequest, isElectricity: Boolean): Result<List<UtilityModel>>
+    suspend fun getUtility(request: UserRequest2, isElectricity: Boolean): Result<UtilityModel>
+
+    suspend fun saveUtility()
 }

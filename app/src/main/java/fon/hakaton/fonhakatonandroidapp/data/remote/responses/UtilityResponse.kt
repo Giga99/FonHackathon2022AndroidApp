@@ -6,6 +6,7 @@ package fon.hakaton.fonhakatonandroidapp.data.remote.responses
  */
 data class UtilityResponse(
     val amount: Long,
+    val carbon_footprint: Long,
     val residents: Long,
     val month: Long,
     val apartment_size: Long

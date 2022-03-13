@@ -21,11 +21,26 @@ sealed class Destinations(val route: String, vararg params: String) {
         }
     }
 
-    object UtilitiesDetailsScreen : Destinations("utilities", "isElectricity") {
+    object UtilitiesDetailsScreen :
+        Destinations("utilities", "id", "username", "name", "isElectricity") {
+
+        const val ID = "id"
+        const val USERNAME = "username"
+        const val NAME = "name"
         const val IS_ELECTRICITY = "isElectricity"
 
-        operator fun invoke(isElectricity: Boolean): String {
-            return route.appendParams(IS_ELECTRICITY to isElectricity)
+        operator fun invoke(
+            id: Int,
+            username: String,
+            name: String,
+            isElectricity: Boolean
+        ): String {
+            return route.appendParams(
+                ID to id,
+                USERNAME to username,
+                NAME to name,
+                IS_ELECTRICITY to isElectricity
+            )
         }
     }
 
