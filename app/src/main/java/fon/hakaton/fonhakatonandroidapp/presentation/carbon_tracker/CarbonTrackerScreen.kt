@@ -155,13 +155,6 @@ private fun CarbonTrackerScreen(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
         )
-        Text(
-            text = stringResource(R.string.average_is, "6.2"),
-            color = TextColorGray,
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-        )
         Spacer(modifier = Modifier.height(36.dp))
 
         Card(
@@ -179,13 +172,25 @@ private fun CarbonTrackerScreen(
                     icon = painterResource(R.drawable.bolt),
                     name = stringResource(R.string.electricity),
                     value = stringResource(R.string.kg_mo, "42.5"),
-                    onClick = { navController.navigate(Destinations.UtilitiesDetailsScreen(isElectricity = true)) }
+                    onClick = {
+                        navController.navigate(
+                            Destinations.UtilitiesDetailsScreen(
+                                isElectricity = true
+                            )
+                        )
+                    }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.drop),
                     name = stringResource(R.string.water),
                     value = stringResource(R.string.kg_mo, "5.1"),
-                    onClick = { navController.navigate(Destinations.UtilitiesDetailsScreen(isElectricity = false)) }
+                    onClick = {
+                        navController.navigate(
+                            Destinations.UtilitiesDetailsScreen(
+                                isElectricity = false
+                            )
+                        )
+                    }
                 )
                 CarbonItem(
                     icon = painterResource(R.drawable.car),
@@ -293,24 +298,25 @@ private fun CarbonProgressBar(
     val beginning = 270f
     val fullAngle = 360f
     val animationDuration = 1200
+    val sum = (viewState.transport + viewState.food + viewState.water + viewState.electricity)
 
     val angleRatioTransport = remember {
         Animatable(zeroAngle)
     }
     LaunchedEffect(key1 = viewState.transport) {
         angleRatioTransport.animateTo(
-            targetValue = viewState.transport,
+            targetValue = viewState.transport / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
     val angleToTransport = fullAngle * angleRatioTransport.value
+
     val angleRatioWater = remember {
         Animatable(zeroAngle)
     }
-
     LaunchedEffect(key1 = viewState.water) {
         angleRatioWater.animateTo(
-            targetValue = viewState.water,
+            targetValue = viewState.water / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -321,7 +327,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.food) {
         angleRatioFood.animateTo(
-            targetValue = viewState.food,
+            targetValue = viewState.food / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -332,7 +338,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.electricity) {
         angleRatioElectricity.animateTo(
-            targetValue = viewState.electricity,
+            targetValue = viewState.electricity / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }

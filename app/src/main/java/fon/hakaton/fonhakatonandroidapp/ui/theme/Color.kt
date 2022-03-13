@@ -20,7 +20,6 @@ val TextColorDarkGray2 = Color(0xFF575757)
 val PlaceholderColor = Color(0xFFB1B1B1)
 
 val TextInputGrayColor = Color(0xFFF3F3F3)
-val TextInputGrayColor2 = Color(0xFFF3F3F3)
 
 val ProgressTransportColor = Color(0xFF007862)
 val ProgressWaterColor = Color(0xFF03B0E7)

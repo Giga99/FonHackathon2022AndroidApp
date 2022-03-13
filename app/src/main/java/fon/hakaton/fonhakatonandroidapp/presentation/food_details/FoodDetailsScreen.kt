@@ -37,6 +37,7 @@ import fon.hakaton.fonhakatonandroidapp.ui.theme.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 @Composable
 fun FoodDetailsScreen(
@@ -266,16 +267,18 @@ private fun CarbonProgressBar(
     val beginning = 270f
     val fullAngle = 360f
     val animationDuration = 1200
+    val sum = (viewState.foodModel.beef + viewState.foodModel.otherMeat + viewState.foodModel.animalProducts + viewState.foodModel.vegetables + viewState.foodModel.pastry)
 
     val angleRatioBeef = remember {
         Animatable(zeroAngle)
     }
     LaunchedEffect(key1 = viewState.foodModel.beef) {
         angleRatioBeef.animateTo(
-            targetValue = viewState.foodModel.beef.toFloat() / 1000f,
+            targetValue = viewState.foodModel.beef.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
+    Timber.d("VALUE: ${angleRatioBeef.value}")
     val angleToBeef = fullAngle * angleRatioBeef.value
 
     val angleRatioOtherMeat = remember {
@@ -283,7 +286,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.foodModel.otherMeat) {
         angleRatioOtherMeat.animateTo(
-            targetValue = viewState.foodModel.otherMeat.toFloat() / 1000f,
+            targetValue = viewState.foodModel.otherMeat.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -294,7 +297,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.foodModel.animalProducts) {
         angleRatioAnimalProducts.animateTo(
-            targetValue = viewState.foodModel.animalProducts.toFloat() / 1000f,
+            targetValue = viewState.foodModel.animalProducts.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -305,7 +308,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.foodModel.vegetables) {
         angleRatioVegetables.animateTo(
-            targetValue = viewState.foodModel.vegetables.toFloat() / 1000f,
+            targetValue = viewState.foodModel.vegetables.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }
@@ -316,7 +319,7 @@ private fun CarbonProgressBar(
     }
     LaunchedEffect(key1 = viewState.foodModel.pastry) {
         angleRatioPastry.animateTo(
-            targetValue = viewState.foodModel.pastry.toFloat() / 1000f,
+            targetValue = viewState.foodModel.pastry.toFloat() / sum,
             animationSpec = tween(durationMillis = animationDuration)
         )
     }

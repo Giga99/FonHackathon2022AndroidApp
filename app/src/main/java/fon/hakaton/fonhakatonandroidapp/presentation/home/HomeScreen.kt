@@ -27,7 +27,7 @@ import fon.hakaton.fonhakatonandroidapp.presentation.tips.TipsScreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonDarkGreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.ButtonLightGreen
 import fon.hakaton.fonhakatonandroidapp.ui.theme.FonHakatonAndroidAppTheme
-import fon.hakaton.fonhakatonandroidapp.ui.theme.PlaceholderColor
+import fon.hakaton.fonhakatonandroidapp.ui.theme.TextInputGrayColor
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
@@ -70,12 +70,6 @@ private fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .background(TextInputGrayColor2)
-//                        .blur(24.dp)
-//                )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -87,13 +81,13 @@ private fun HomeScreen(
                     TabItem(
                         name = stringResource(R.string.overview),
                         icon = painterResource(R.drawable.eye),
-                        color = if (viewState.overviewSelected) ButtonLightGreen else PlaceholderColor,
+                        color = if (viewState.overviewSelected) ButtonLightGreen else TextInputGrayColor,
                         onClick = { intentChannel.tryEmit(HomeIntent.OverviewTabClicked) },
                     )
                     TabItem(
                         name = stringResource(R.string.fun_facts),
                         icon = painterResource(R.drawable.magazine),
-                        color = if (!viewState.overviewSelected) ButtonLightGreen else PlaceholderColor,
+                        color = if (!viewState.overviewSelected) ButtonLightGreen else TextInputGrayColor,
                         onClick = { intentChannel.tryEmit(HomeIntent.TipsTabClicked) },
                     )
                 }
